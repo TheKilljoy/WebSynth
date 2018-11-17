@@ -194,52 +194,100 @@ class KeyCodeEnum
     }
 }
 
-var ac = new AudioContext();
-var osc;
-var osc2;
-var osc3;
-var osc4;
-var keyEnum = new KeyCodeEnum();
+class Sound
+{
+    constructor(oscillators, waveTypes)
+    {
+        this.oscillators = oscillators;
+        var counter = 0;
+        if(oscillators.length === waveTypes.length)
+        {
+            for(let oscillator of this.oscillators)
+            {
+                oscillator.type = waveTypes[counter++];
+                oscillator.frequency.value = 0;
+                oscillator.connect(ac.destination);
+                oscillator.start();  
+            }
+        }
+    }
 
+    remove()
+    {
+        for(let oscillator of this.oscillators)
+        {
+            oscillator.stop();
+        }
+    }
+
+    setFrequency(freqVal)
+    {
+        for(let osc of this.oscillators)
+        {
+            osc.frequency.value = freqVal;
+        }
+    }
+
+    setFrequencyAt(index, freqVal)
+    {
+        this.oscillators[index].frequency.value = freqVal;
+    }
+
+    setFrequencies(freqVals)
+    {
+        for(let i = 0; i < freqVals.length; ++i)
+        {
+            this.oscillators[i].frequency.value = freqVals[i];
+        }
+    }
+}
+
+class Voices
+{
+    constructor()
+    {
+        this.dictionary = {};
+    }
+
+    addVoice(charVal, midiVal)
+    {
+        if(typeof this.dictionary[charVal] == 'undefined')
+        {
+            var s = new Sound(
+                [ac.createOscillator(), ac.createOscillator(), ac.createOscillator(), ac.createOscillator()],
+                ["sawtooth", "sine", "square", "triangle"]
+            );
+            s.setFrequencies([
+                                MidiToFrequencyLookupTable[midiVal],
+                                MidiToFrequencyLookupTable[midiVal+12],
+                                MidiToFrequencyLookupTable[midiVal-12],
+                                MidiToFrequencyLookupTable[midiVal+24]
+                            ]);
+            this.dictionary[charVal] = s;
+        }
+    }
+
+    removeVoice(charVal)
+    {
+        if(typeof this.dictionary[charVal] != 'undefined')
+        {
+            this.dictionary[charVal].remove();
+            delete this.dictionary[charVal];
+        }
+    }
+
+
+}
+var ac = new AudioContext();
+var keyEnum = new KeyCodeEnum();
+var voices = new Voices();
 document.addEventListener('keydown', (event) => {
     key = keyEnum.getKey(event.key);
-    
-    osc = ac.createOscillator();
-    osc2 = ac.createOscillator();
-    osc3 = ac.createOscillator();
-    osc4 = ac.createOscillator();
-
-    osc.connect(ac.destination);
-    osc2.connect(ac.destination);
-    osc3.connect(ac.destination);
-    osc4.connect(ac.destination);
-
-    osc.type="sawtooth";
-    osc2.type="sine";
-    osc3.type="square";
-    osc4.type="triangle";
-
-    
-    osc.frequency.value = MidiToFrequencyLookupTable[key.MIDI_VAL - 12];
-    osc.frequency.value = MidiToFrequencyLookupTable[key.MIDI_VAL - 12] / 2;
-    osc.frequency.value = MidiToFrequencyLookupTable[key.MIDI_VAL - 12] * 2;
-    osc.frequency.value = MidiToFrequencyLookupTable[key.MIDI_VAL - 12] * 3;
-    
-    osc.start();
-    osc2.start();
-    osc3.start();
-    osc4.start();
+    voices.addVoice(key.CODE, key.MIDI_VAL);
 });
 
 document.addEventListener('keyup', (event) =>{
-    osc.disconnect();
-    osc2.disconnect();
-    osc3.disconnect();
-    osc4.disconnect();
-    osc.stop();
-    osc2.stop();
-    osc3.stop();
-    osc4.stop();
+    voices.removeVoice(event.key);
 });
 
 
