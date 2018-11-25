@@ -1,3 +1,5 @@
+//this class maps the buttons on the keyboard to a specific midi value
+//and makes it possible to look it up when needed
 export default class KeyboardInput
 {
     constructor()
@@ -47,11 +49,12 @@ export default class KeyboardInput
         return charToMidiValue;
     }
 
+    //returns the midinote that is mapped to this char
     getNote(char)
     {
         return this.charToMidiValue[char];
     }
-
+    //velocity is always 127
     getVelocity()
     {
         return 127;

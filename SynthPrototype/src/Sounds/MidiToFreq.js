@@ -1,3 +1,4 @@
+//a "static class" with a lookup table for converting MIDI to Frequency
 let lookupTable =
 [
     8.1757989156,
