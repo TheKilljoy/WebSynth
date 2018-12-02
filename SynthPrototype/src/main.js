@@ -1,5 +1,6 @@
 import InputEventHandler from "./Inputs/InputEventHandler.js";
 import Voices from "./Sounds/Voices.js";
+import SynthKnob from "./Components/SynthKnob.js"
 
 //create an audio context (needs to be into an singleton later)
 var ac = new AudioContext();
