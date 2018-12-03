@@ -1,11 +1,14 @@
 export default class SynthKnob extends HTMLElement {
-
     constructor() {
         super()
 
         const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML =
         `
         <style>
+        .wrapper {
+            display: inline-block;
+            margin: 24px;
+        }
         #circle {
             position: relative;
             width: 64px;
@@ -13,6 +16,7 @@ export default class SynthKnob extends HTMLElement {
             border-radius: 50%;
             background: #000;
             cursor: pointer;
+            display: block;
         }
         #circle::before {
             content: '';
@@ -20,22 +24,31 @@ export default class SynthKnob extends HTMLElement {
             width: 16px;
             height: 16px;
             margin: 8px;
+            top: 50%;
             border-radius: 50%;
             background: #FFF;
+            opacity: .5;
+        }
+        p {
+            color: #FFF;
+            font-family: sans-serif;
+            font-weight: bold;
+            text-align: center;
+            display: block;
         }
         </style>
-        <p>LEVEL</p>
-        <div id="circle"></div>
+        <div class="wrapper">
+            <div id="circle"></div>
+            <p><slot></slot></p>
+        </div>
         `
 
         let circle = this.shadowRoot.querySelector('#circle')
         circle.addEventListener('mousemove', (event) => {
-            let vector = [event.x, event.y]
-            let centerVector = [event.target.offsetWidth / 2 - vector[0], event.target.offsetHeight / 2 - vector[1]]
-            let value = Math.atan(centerVector[0], centerVector[1]) * (1 / Math.PI) + 0.5
+            let value = event.x / event.target.offsetWidth
+            let degrees = value * 0.75 * 360 - 45
 
-            console.log(value);
-
+            circle.style.transform = "rotate(" + degrees + "deg)"
             this.value = value
             this.shadowRoot.dispatchEvent(new Event('knobmove', {bubbles: true, composed: true}))
         })
