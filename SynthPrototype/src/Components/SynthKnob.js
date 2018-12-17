@@ -29,6 +29,26 @@ export default class SynthKnob extends HTMLElement {
             background: #FFF;
             opacity: .5;
         }
+        input[type="range"] {
+            -webkit-appearance: none;
+            background: #FFF;
+            width: 128px;
+            height: 6px;
+            border-radius: 3px;
+            opacity: 0.2;
+        }
+        input[type="range"]:hover {
+            opacity: 0.4;
+        }
+        input[type="range"]::-webkit-slider-thumb,
+        input[type="range"]::-moz-range-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            background: #FFF;
+            width: 12px;
+            height: 12px;
+            cursor: pointer;
+        }
         p {
             color: #FFF;
             font-family: sans-serif;
@@ -38,19 +58,18 @@ export default class SynthKnob extends HTMLElement {
         }
         </style>
         <div class="wrapper">
-            <div id="circle"></div>
+            <input id="slider" type="range" min="1" max="100">
             <p><slot></slot></p>
         </div>
         `
 
-        let circle = this.shadowRoot.querySelector('#circle')
-        circle.addEventListener('mousemove', (event) => {
-            let value = event.x / event.target.offsetWidth
-            let degrees = value * 0.75 * 360 - 45
-
-            circle.style.transform = "rotate(" + degrees + "deg)"
+        let slider = this.shadowRoot.querySelector('#slider')
+        slider.addEventListener('input', (event) => {
+            let value = slider.value
             this.value = value
-            this.shadowRoot.dispatchEvent(new Event('knobmove', {bubbles: true, composed: true}))
+            let moveEvent = new Event('move', {bubbles: true, composed: true})
+            moveEvent.data = value
+            this.shadowRoot.dispatchEvent(moveEvent)
         })
     }
 }

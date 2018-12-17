@@ -22,9 +22,9 @@ export default class Voices {
     addVoice(velocity, note) {
         if (typeof this.dictionary[note] == 'undefined') {
             ///////////////////this area is later extracted from the website /////////////////////
-            var soundFrgmnt = new Soundfragment(12, 0.5, "triangle", this.audiocontext); 
-            var soundFrgmnt2 = new Soundfragment(0, 1, "sine", this.audiocontext);
-            var soundFrgmnt3 = new Soundfragment(24, 0.2, "triangle", this.audiocontext);
+            var soundFrgmnt = new Soundfragment(12, document.querySelector('#osc1 synth-osc'), this.audiocontext, document.querySelector('#osc1 synth-knob'));
+            var soundFrgmnt2 = new Soundfragment(0, document.querySelector('#osc2 synth-osc'), this.audiocontext, document.querySelector('#osc2 synth-knob'));
+            var soundFrgmnt3 = new Soundfragment(24, document.querySelector('#osc3 synth-osc'), this.audiocontext, document.querySelector('#osc3 synth-knob'));
             var soundfragments = [soundFrgmnt, soundFrgmnt2, soundFrgmnt3];
             var adsr = new ADSR(0.1, 0.5, 0, 0.01);
             //////////////////////////////////////////////////////////////////////////////////////
