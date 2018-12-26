@@ -22,9 +22,30 @@ export default class Voices {
     addVoice(velocity, note) {
         if (typeof this.dictionary[note] == 'undefined') {
             ///////////////////this area is later extracted from the website /////////////////////
-            var soundFrgmnt = new Soundfragment(12, document.querySelector('#osc1 synth-osc'), this.audiocontext, document.querySelector('#osc1 synth-knob'));
-            var soundFrgmnt2 = new Soundfragment(0, document.querySelector('#osc2 synth-osc'), this.audiocontext, document.querySelector('#osc2 synth-knob'));
-            var soundFrgmnt3 = new Soundfragment(24, document.querySelector('#osc3 synth-osc'), this.audiocontext, document.querySelector('#osc3 synth-knob'));
+            var soundFrgmnt = new Soundfragment(
+                document.querySelector('#osc1 synth-octave'),
+                document.querySelector('#osc1 synth-osc'),
+                document.querySelector('#osc1 .pitch'),
+                this.audiocontext,
+                document.querySelector('#osc1 .level')
+            );
+
+            var soundFrgmnt2 = new Soundfragment(
+                document.querySelector('#osc2 synth-octave'),
+                document.querySelector('#osc2 synth-osc'),
+                document.querySelector('#osc2 .pitch'),
+                this.audiocontext,
+                document.querySelector('#osc2 .level')
+            );
+
+            var soundFrgmnt3 = new Soundfragment(
+                document.querySelector('#osc2 synth-octave'),
+                document.querySelector('#osc3 synth-osc'),
+                document.querySelector('#osc3 .pitch'),
+                this.audiocontext,
+                document.querySelector('#osc3 .level')
+            );
+
             var soundfragments = [soundFrgmnt, soundFrgmnt2, soundFrgmnt3];
             var adsr = new ADSR(0.1, 0.5, 0, 0.01);
             //////////////////////////////////////////////////////////////////////////////////////

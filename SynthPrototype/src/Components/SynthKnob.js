@@ -2,6 +2,7 @@ export default class SynthKnob extends HTMLElement {
     constructor() {
         super()
 
+        this.value = 50
         const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML =
         `
         <style>

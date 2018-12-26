@@ -1,8 +1,8 @@
-export default class SynthOsc extends HTMLElement {
+export default class SynthOctave extends HTMLElement {
     constructor() {
         super()
 
-        this.value = "sine"
+        this.value = 0
         const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML =
         `
         <style>
@@ -32,18 +32,18 @@ export default class SynthOsc extends HTMLElement {
         }
         </style>
         <div class="wrapper">
-            <button>SINE</button>
-            <button>TRIANGLE</button>
-            <button>SAW</button>
-            <button>SQUARE</button>
+            <button>C0</button>
+            <button>C1</button>
+            <button>C2</button>
+            <button>C3</button>
         </div>
         `
 
-        this.shadowRoot.querySelector('button:nth-of-type(1)').onclick = () => { this.value = "sine" }
-        this.shadowRoot.querySelector('button:nth-of-type(2)').onclick = () => { this.value = "triangle" }
-        this.shadowRoot.querySelector('button:nth-of-type(3)').onclick = () => { this.value = "sawtooth" }
-        this.shadowRoot.querySelector('button:nth-of-type(4)').onclick = () => { this.value = "square" }
+        this.shadowRoot.querySelector('button:nth-of-type(1)').onclick = () => { this.value = 0 }
+        this.shadowRoot.querySelector('button:nth-of-type(2)').onclick = () => { this.value = 1 }
+        this.shadowRoot.querySelector('button:nth-of-type(3)').onclick = () => { this.value = 2 }
+        this.shadowRoot.querySelector('button:nth-of-type(4)').onclick = () => { this.value = 3 }
     }
 }
 
-customElements.define('synth-osc', SynthOsc)
+customElements.define('synth-octave', SynthOctave)
