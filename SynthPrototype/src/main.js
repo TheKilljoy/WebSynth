@@ -4,6 +4,7 @@ import SynthKnob from "./Components/SynthKnob.js"
 import SynthModule from "./Components/SynthModule.js"
 import SynthOsc from "./Components/SynthOsc.js"
 import SynthOctave from "./Components/SynthOctave.js"
+import SynthSound from "./Components/SynthSound.js"
 
 //create an audio context (needs to be into an singleton later)
 var ac = new AudioContext();

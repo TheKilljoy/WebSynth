@@ -3,34 +3,33 @@ export default class SynthKnob extends HTMLElement {
         super()
 
         this.value = 50
-        const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML =
-        `
+        const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML = this.template()
+
+        let slider = this.shadowRoot.querySelector('#slider')
+        slider.addEventListener('input', (event) => {
+            let value = slider.value
+            this.value = value
+            let moveEvent = new Event('move', {bubbles: true, composed: true})
+            moveEvent.data = value
+            this.shadowRoot.dispatchEvent(moveEvent)
+        })
+    }
+
+    template() {
+        const html = String.raw
+
+        return html`
+        <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="./node_modules/jquery-knob/js/jquery.knob.js"></script>
+        <script>
+            $("#slider").knob()
+        </script>
         <style>
         .wrapper {
             display: inline-block;
-            margin: 24px;
+            margin: 12px;
         }
-        #circle {
-            position: relative;
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: #000;
-            cursor: pointer;
-            display: block;
-        }
-        #circle::before {
-            content: '';
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            margin: 8px;
-            top: 50%;
-            border-radius: 50%;
-            background: #FFF;
-            opacity: .5;
-        }
-        input[type="range"] {
+        #slider {
             -webkit-appearance: none;
             background: #FFF;
             width: 128px;
@@ -38,11 +37,11 @@ export default class SynthKnob extends HTMLElement {
             border-radius: 3px;
             opacity: 0.2;
         }
-        input[type="range"]:hover {
+        #slider:hover {
             opacity: 0.4;
         }
-        input[type="range"]::-webkit-slider-thumb,
-        input[type="range"]::-moz-range-thumb {
+        #slider::-webkit-slider-thumb,
+        #slider::-moz-range-thumb {
             -webkit-appearance: none;
             appearance: none;
             background: #FFF;
@@ -54,6 +53,7 @@ export default class SynthKnob extends HTMLElement {
             color: #FFF;
             font-family: sans-serif;
             font-weight: bold;
+            font-size: .75em;
             text-align: center;
             display: block;
         }
@@ -63,15 +63,6 @@ export default class SynthKnob extends HTMLElement {
             <p><slot></slot></p>
         </div>
         `
-
-        let slider = this.shadowRoot.querySelector('#slider')
-        slider.addEventListener('input', (event) => {
-            let value = slider.value
-            this.value = value
-            let moveEvent = new Event('move', {bubbles: true, composed: true})
-            moveEvent.data = value
-            this.shadowRoot.dispatchEvent(moveEvent)
-        })
     }
 }
 

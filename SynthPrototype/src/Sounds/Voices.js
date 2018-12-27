@@ -23,27 +23,18 @@ export default class Voices {
         if (typeof this.dictionary[note] == 'undefined') {
             ///////////////////this area is later extracted from the website /////////////////////
             var soundFrgmnt = new Soundfragment(
-                document.querySelector('#osc1 synth-octave'),
-                document.querySelector('#osc1 synth-osc'),
-                document.querySelector('#osc1 .pitch'),
-                this.audiocontext,
-                document.querySelector('#osc1 .level')
+                document.querySelectorAll('synth-sound')[0],
+                this.audiocontext
             );
 
             var soundFrgmnt2 = new Soundfragment(
-                document.querySelector('#osc2 synth-octave'),
-                document.querySelector('#osc2 synth-osc'),
-                document.querySelector('#osc2 .pitch'),
-                this.audiocontext,
-                document.querySelector('#osc2 .level')
+                document.querySelectorAll('synth-sound')[1],
+                this.audiocontext
             );
 
             var soundFrgmnt3 = new Soundfragment(
-                document.querySelector('#osc2 synth-octave'),
-                document.querySelector('#osc3 synth-osc'),
-                document.querySelector('#osc3 .pitch'),
-                this.audiocontext,
-                document.querySelector('#osc3 .level')
+                document.querySelectorAll('synth-sound')[2],
+                this.audiocontext
             );
 
             var soundfragments = [soundFrgmnt, soundFrgmnt2, soundFrgmnt3];

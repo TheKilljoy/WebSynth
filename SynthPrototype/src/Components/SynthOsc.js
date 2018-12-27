@@ -3,24 +3,41 @@ export default class SynthOsc extends HTMLElement {
         super()
 
         this.value = "sine"
-        const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML =
-        `
+        const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML = this.template()
+
+        this.shadowRoot.querySelector('button:nth-of-type(1)').onclick = () => { this.value = "sine" }
+        this.shadowRoot.querySelector('button:nth-of-type(2)').onclick = () => { this.value = "triangle" }
+        this.shadowRoot.querySelector('button:nth-of-type(3)').onclick = () => { this.value = "sawtooth" }
+        this.shadowRoot.querySelector('button:nth-of-type(4)').onclick = () => { this.value = "square" }
+
+        this.shadowRoot.querySelectorAll('button').forEach(button =>
+            button.addEventListener('click', e => {
+                this.shadowRoot.querySelector('.selected').classList.remove('selected')
+                button.classList.add('selected')
+            })
+        )
+    }
+
+    template() {
+        const html = String.raw
+
+        return html`
         <style>
         .wrapper {
             display: inline-block;
-            margin: 24px;
+            margin: 12px;
         }
         button {
             display: block;
-            margin: 6px auto;
-            padding: 12px;
+            margin: 3px auto;
+            padding: 6px;
             width: 128px;
-            height: 48px;
+            height: 32px;
             color: #FFF;
             background-color: rgba(0,0,0,0);
             font-size: 1em;
             border: none;
-            border-radius: 24px;
+            border-radius: 16px;
             cursor: pointer;
         }
         button:hover {
@@ -28,21 +45,19 @@ export default class SynthOsc extends HTMLElement {
         }
         button:focus {
             outline: none;
+        }
+        .selected {
+            outline: none;
             border: 1px solid #FFF;
         }
         </style>
         <div class="wrapper">
-            <button>SINE</button>
+            <button class="selected">SINE</button>
             <button>TRIANGLE</button>
             <button>SAW</button>
             <button>SQUARE</button>
         </div>
         `
-
-        this.shadowRoot.querySelector('button:nth-of-type(1)').onclick = () => { this.value = "sine" }
-        this.shadowRoot.querySelector('button:nth-of-type(2)').onclick = () => { this.value = "triangle" }
-        this.shadowRoot.querySelector('button:nth-of-type(3)').onclick = () => { this.value = "sawtooth" }
-        this.shadowRoot.querySelector('button:nth-of-type(4)').onclick = () => { this.value = "square" }
     }
 }
 
