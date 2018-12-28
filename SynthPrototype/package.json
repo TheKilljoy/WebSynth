@@ -2,7 +2,7 @@
   "name": "uebung1",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "live-server"
@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "live-server": "^1.2.0"
+    "jquery": "^3.3.1",
+    "jquery-knob": "^1.2.11",
+    "live-server": "^1.2.1"
   }
 }
