@@ -20,6 +20,16 @@ export default class Soundfragment {
         this.volume.connect(connectTo);
     }
 
+    //connect a node to the frequency of this oscillator
+    connectToOscillatorFrequency(connector){
+        connector.connect(this.oscNode.frequency);
+    }
+
+    //connect a node to the frequency of this oscillator
+    connectToOscillatorGain(connector){
+        connector.connect(this.volume.gain);
+    }
+
     start(){
         this.oscNode.start();
     }
@@ -28,5 +38,9 @@ export default class Soundfragment {
     setNote(note) {
         //Example: The user plays a midinote with value 72 and the note should be one octave higher, then "this.note" is 12.
         this.oscNode.frequency.value = MidiToFreq.convert(this.note + note) * Math.pow(this.pitch, 1/12);
+    }
+
+    setFrequency(frequency){
+        this.oscNode.frequency.value = frequency;
     }
 }
