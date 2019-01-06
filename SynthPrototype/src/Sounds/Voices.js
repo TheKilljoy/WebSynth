@@ -6,6 +6,10 @@ import EffectChain from "../Effects/EffectChain.js";
 import Delay from "../Effects/Delay.js";
 import Tremolo from "../Effects/Tremolo.js";
 import Vibrato from "../Effects/Vibrato.js";
+import Compressor from "../Effects/Compressor.js";
+import Reverb from "../Effects/Reverb.js";
+import ReverbType from "../Effects/ReverbType.js";
+import ReverbAndDelay from "../Effects/ReverbAndDelay.js";
 
 //this class contains several sounds (each key you press represents a specific sound with a specific note)
 //and checks if that note is already played. if it is played it does nothing, if it isn't played yet it adds it
@@ -20,15 +24,23 @@ export default class Voices {
         
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([
+            new Reverb(ReverbType.type("SmallHexagon1"), this.masterVolume, this.audiocontext),
             new Delay(1, 0.2, this.masterVolume, this.audiocontext),
+            new ReverbAndDelay(ReverbType.type("SmallHexagon1"), 1, 0.5, this.masterVolume, this.audiocontext),
             new Vibrato(5, 100, "sine", this.masterVolume, this.audiocontext),
-            new Tremolo(2, 1, "sine", this.masterVolume, this.audiocontext)
+            new Tremolo(2, 1, "sine", this.masterVolume, this.audiocontext),
+            new Compressor(-40, 20, 2, 0.0, 0.25, this.masterVolume, this.audiocontext)
+            
         ]);
 
-        //example for deactivating an effect
-        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Delay"));
-        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Vibrato"));
-        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
+        //example for deactivating an effect - effects are switched on by creation, so if 
+        //the line is not commented out they are deactivated
+        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Reverb"));
+        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Delay"));
+        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("ReverbAndDelay"));
+        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Vibrato"));
+        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
+        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Compressor"));
     }
 
 
@@ -58,7 +70,7 @@ export default class Voices {
             );
 
             this.soundfragments = [soundFrgmnt, soundFrgmnt2, soundFrgmnt3];
-            var adsr = new ADSR(0.1, 0.5, 1, 0.01);
+            var adsr = new ADSR(0.1, 0.5, 1, 0.1);
             //////////////////////////////////////////////////////////////////////////////////////
             //the vibrato effect needs the frequency of the oscillatorNode of the soundfragments
             //therefore after we created the soundfragments we need to give the effect those soundfragments
