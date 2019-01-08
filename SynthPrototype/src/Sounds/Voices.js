@@ -21,7 +21,7 @@ export default class Voices {
         this.masterVolume = audiocontext.createGain();
         this.masterVolume.connect(audiocontext.destination);
         this.soundfragments = [];
-        
+
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([
             new Reverb(ReverbType.type("SmallHexagon1"), this.masterVolume, this.audiocontext),
@@ -30,10 +30,10 @@ export default class Voices {
             new Vibrato(5, 100, "sine", this.masterVolume, this.audiocontext),
             new Tremolo(2, 1, "sine", this.masterVolume, this.audiocontext),
             new Compressor(-40, 20, 2, 0.0, 0.25, this.masterVolume, this.audiocontext)
-            
+
         ]);
 
-        //example for deactivating an effect - effects are switched on by creation, so if 
+        //example for deactivating an effect - effects are switched on by creation, so if
         //the line is not commented out they are deactivated
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Reverb"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Delay"));
@@ -54,22 +54,16 @@ export default class Voices {
     addVoice(velocity, note) {
         if (typeof this.dictionary[note] == 'undefined') {
             ///////////////////this area is later extracted from the website /////////////////////
-            var soundFrgmnt = new Soundfragment(
-                document.querySelectorAll('synth-sound')[0],
-                this.audiocontext
-            );
 
-            var soundFrgmnt2 = new Soundfragment(
-                document.querySelectorAll('synth-sound')[1],
-                this.audiocontext
-            );
+            let soundfragmentElements = document.querySelectorAll('synth-sound')
+            let soundfragments = []
 
-            var soundFrgmnt3 = new Soundfragment(
-                document.querySelectorAll('synth-sound')[2],
-                this.audiocontext
-            );
+            for (let element of soundfragmentElements) {
+                soundfragments.push(new Soundfragment(element, this.audiocontext))
+            }
 
-            this.soundfragments = [soundFrgmnt, soundFrgmnt2, soundFrgmnt3];
+            this.soundfragments = soundfragments
+
             var adsr = new ADSR(0.1, 0.5, 1, 0.1);
             //////////////////////////////////////////////////////////////////////////////////////
             //the vibrato effect needs the frequency of the oscillatorNode of the soundfragments
