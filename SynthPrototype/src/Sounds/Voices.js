@@ -22,6 +22,18 @@ export default class Voices {
         this.masterVolume.connect(audiocontext.destination);
         this.soundfragments = [];
 
+        //PRECOMPRESSION!!!!
+        //prevents oscillators from adding up and clipping when many keys are pressed
+        //needs to be configurable!
+        this.precompressor = audiocontext.createDynamicsCompressor();
+        this.precompressor.threshold.value = -50; //Is a k-rate AudioParam representing the decibel value above which the compression will start taking effect.
+        this.precompressor.knee.value = 20;           //Is a k-rate AudioParam containing a decibel value representing the range above the threshold where the curve smoothly transitions to the compressed portion.
+        this.precompressor.ratio.value = 2;         //Is a k-rate AudioParam representing the amount of change, in dB, needed in the input for a 1 dB change in the output.
+        this.precompressor.attack.value = 0;       //Is a k-rate AudioParam representing the amount of time, in seconds, required to reduce the gain by 10 dB.
+        this.precompressor.release.value = 0.25;     //Is a k-rate AudioParam representing the amount of time, in seconds, required to increase the gain by 10 dB.
+        this.masterVolume.connect(this.precompressor);
+        this.precompressor.connect(audiocontext.destination);
+
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([
             new Reverb(ReverbType.type("SmallHexagon1"), this.masterVolume, this.audiocontext),

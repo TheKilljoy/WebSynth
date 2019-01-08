@@ -15,9 +15,15 @@ export default class Compressor extends Effect{
         this.compressor.release.value = release;     //Is a k-rate AudioParam representing the amount of time, in seconds, required to increase the gain by 10 dB.
     }
 
-    apply(){
+    apply(gainNode){
         this.volumeNode.connect(this.compressor);
-        this.compressor.connect(this.audioContext.destination);
+
+        if(gainNode == null)
+        {
+            return this.volumeNode;
+        }
+        gainNode.connect(this.compressor);
+        return this.compressor;
     }
 
     getType(type){

@@ -19,9 +19,15 @@ export default class Reverb extends Effect{
         this.convolver.buffer = await getImpulseBuffer(this.audioContext, this.reverbType);
     }
 
-    apply(){
+    apply(gainNode){
         this.volumeNode.connect(this.convolver);
-        this.convolver.connect(this.audioContext.destination);
+
+        if(gainNode == null)
+        {
+            return this.convolver;
+        }
+        gainNode.connect(this.convolver);
+        return this.convolver;
 
     }
 

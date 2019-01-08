@@ -13,12 +13,14 @@ export default class EffectChain{
     }
 
     //loop through all effects and apply if they're activated
-    applyEffects(){
+    applyEffects(audioContext){
+        var gainNode;
         for(var i = 0; i < this.effects.length; i++){
             if(this.activated[i]){
-                this.effects[i].apply();
+                gainNode = this.effects[i].apply(gainNode);
             }
         }
+        gainNode.connect(audioContext.destination);
     }
 
     getEffect(index){
