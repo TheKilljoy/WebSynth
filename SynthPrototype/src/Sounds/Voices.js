@@ -36,12 +36,14 @@ export default class Voices {
         this.precompressor.connect(audiocontext.destination);
 
         this.synthFilter = document.querySelector('synth-filter')
+        this.synthDelay = document.querySelector('synth-delay')
+        this.synthReverb = document.querySelector('synth-reverb')
 
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([
             new Filter(this.synthFilter, this.masterVolume, this.audiocontext),
-            new Reverb(ReverbType.type("SmallHexagon1"), this.masterVolume, this.audiocontext),
-            new Delay(1, 0.2, this.masterVolume, this.audiocontext),
+            new Reverb(this.synthReverb, this.masterVolume, this.audiocontext),
+            new Delay(this.synthDelay, this.masterVolume, this.audiocontext),
             new ReverbAndDelay(ReverbType.type("SmallHexagon1"), 1, 0.5, this.masterVolume, this.audiocontext),
             new Vibrato(5, 100, "sine", this.masterVolume, this.audiocontext),
             new Tremolo(2, 1, "sine", this.masterVolume, this.audiocontext),
@@ -56,7 +58,7 @@ export default class Voices {
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Delay"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("ReverbAndDelay"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Vibrato"));
-        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
+        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Compressor"));
     }
 

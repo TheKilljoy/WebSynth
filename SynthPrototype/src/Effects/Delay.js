@@ -4,16 +4,17 @@ import Effect from "./Effect.js";
 //The delay starts after x seconds (delayTime) and repeats while getting quiter over time (delayDuration)
 //So the delay class has two properties DelayTime in seconds and DelayDuration between 0 and 1
 export default class Delay extends Effect{
-    constructor(delayTime, delayDuration, volumeNode, audioContext){
+    constructor(synthDelay, volumeNode, audioContext){
         super(volumeNode, audioContext);
         this.delay = audioContext.createDelay();
-        this.delay.delayTime.value = delayTime; // the time in seconds after which the first delay starts
+        this.delay.delayTime.value = synthDelay.synthKnobTime.value / 100; // the time in seconds after which the first delay starts
         this.source = audioContext.createBufferSource();
         this.feedback = audioContext.createGain();
-        if(delayDuration > 1){
-            delayDuration = 1.0;
+        this.delayDuration = synthDelay.synthKnobDuration.value;
+        if(this.delayDuration > 1){
+            this.delayDuration = 1.0;
         }
-        this.feedback.gain.value = delayDuration; // 0 = no feedback, 1 = repeating "forever"
+        this.feedback.gain.value = this.delayDuration / 100; // 0 = no feedback, 1 = repeating "forever"
     }
     apply(gainNode){
         this.delay.connect(this.feedback);

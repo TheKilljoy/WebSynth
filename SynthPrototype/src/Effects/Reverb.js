@@ -1,4 +1,5 @@
 import Effect from "./Effect.js";
+import ReverbType from "./ReverbType.js";
 
 const getImpulseBuffer = (audioContext, impulseURL) => {
     return fetch(impulseURL)
@@ -7,11 +8,12 @@ const getImpulseBuffer = (audioContext, impulseURL) => {
 }
 
 export default class Reverb extends Effect{
-    constructor(reverbType, volumeNode, audioContext){
+    constructor(synthReverb, volumeNode, audioContext){
         super(volumeNode, audioContext);
-        this.reverbType = reverbType;
-         this.convolver = audioContext.createConvolver();
-         this.initReverb();
+        this.reverbType =  ReverbType.type(synthReverb.value);
+        this.convolver = audioContext.createConvolver();
+        console.log(this.reverbType)
+        this.initReverb();
 
     }
 

@@ -7,6 +7,8 @@ import SynthOctave from "./Components/SynthOctave.js"
 import SynthSound from "./Components/SynthSound.js"
 import SynthFilter from "./Components/SynthFilter.js"
 import SynthADSR from "./Components/SynthADSR.js"
+import SynthDelay from "./Components/SynthDelay.js"
+import SynthReverb from "./Components/SynthReverb.js"
 
 //create an audio context (needs to be into an singleton later)
 var ac = new AudioContext();
