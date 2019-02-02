@@ -11,7 +11,7 @@ export default class SynthFilter extends HTMLElement {
         const html = String.raw
 
         return html`
-        <synth-module>
+        <synth-module name="Filter">
             <synth-knob>CUTOFF</synth-knob>
         </synth-module>
         `

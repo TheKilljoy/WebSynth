@@ -14,7 +14,7 @@ export default class SynthADSR extends HTMLElement {
         const html = String.raw
 
         return html`
-        <synth-module>
+        <synth-module name="ADSR">
             <synth-knob>Attack</synth-knob>
             <synth-knob>Decay</synth-knob>
             <synth-knob>Sustain</synth-knob>

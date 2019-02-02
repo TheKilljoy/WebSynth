@@ -17,8 +17,16 @@ export default class SynthModule extends HTMLElement {
             margin: 1%;
             border-radius: 12px;
         }
+        h2 {
+            color: #FFF;
+            font-family: sans-serif;
+            text-align: center;
+        }
         </style>
-        <div><slot></slot></div>
+        <div>
+            <h2>${this.getAttribute('name')}</h2>
+            <slot></slot>
+        </div>
         `
     }
 }

@@ -14,7 +14,7 @@ export default class SynthSound extends HTMLElement {
         const html = String.raw
 
         return html`
-        <synth-module>
+        <synth-module name="Oscillator">
             <synth-osc></synth-osc>
             <synth-octave></synth-octave>
             <synth-knob>PITCH</synth-knob>

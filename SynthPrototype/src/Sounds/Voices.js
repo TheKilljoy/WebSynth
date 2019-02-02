@@ -51,12 +51,12 @@ export default class Voices {
 
         //example for deactivating an effect - effects are switched on by creation, so if
         //the line is not commented out they are deactivated
-        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Filter"));
+        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Filter"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Reverb"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Delay"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("ReverbAndDelay"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Vibrato"));
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
+        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Compressor"));
     }
 
