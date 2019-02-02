@@ -49,7 +49,6 @@ export default class Voices {
         ]);
 
 
-
         //example for deactivating an effect - effects are switched on by creation, so if
         //the line is not commented out they are deactivated
         //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Filter"));
@@ -93,6 +92,8 @@ export default class Voices {
             s.connectSoundTo(this.masterVolume);
             s.start(); //needs to be called before anything happens! see "sound.js"
             s.onPress(note, velocity);
+            //apply all effects on the sound
+            //this.effectChain.applyEffects();
         }
 
     }

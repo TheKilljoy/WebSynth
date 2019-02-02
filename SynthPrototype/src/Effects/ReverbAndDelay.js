@@ -22,6 +22,8 @@ export default class ReverbAndDelay extends Effect{
             delayDuration = 1.0;
         }
         this.feedback.gain.value = delayDuration; // 0 = no feedback, 1 = repeating "forever"
+
+        this.volume = audioContext.createGain();
     }
     apply(gainNode){
         //feedback loop
