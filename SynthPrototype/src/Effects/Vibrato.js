@@ -20,10 +20,11 @@ export default class Vibrato extends Effect{
         this.soundfragments = []
     }
 
-    apply(){
+    apply(gainNode){
         this.soundfragments.forEach(soundFrgmnt => {
             soundFrgmnt.connectToOscillatorFrequency(this.lfoRange);
         });
+        return gainNode;
     }
 
     getType(type){

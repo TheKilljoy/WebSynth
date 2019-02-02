@@ -23,7 +23,7 @@ export default class ReverbAndDelay extends Effect{
         }
         this.feedback.gain.value = delayDuration; // 0 = no feedback, 1 = repeating "forever"
     }
-    apply(){
+    apply(gainNode){
         //feedback loop
         this.delay.connect(this.feedback);
         this.feedback.connect(this.delay);
@@ -32,14 +32,25 @@ export default class ReverbAndDelay extends Effect{
         this.volumeNode.connect(this.convolver);
         this.convolver.connect(this.delay);
         //connect everything to destination
-        this.convolver.connect(this.audioContext.destination);
-        this.delay.connect(this.audioContext.destination);
+
+        // this.convolver.connect(this.audioContext.destination);
+        // this.delay.connect(this.audioContext.destination);
+
+        this.convolver.connect(this.volume);
+        this.delay.connect(this.volume);
+
+        if(gainNode == null)
+        {
+            return this.volume;
+        }
+        gainNode.connect(this.volume);
+        return this.volume;
     }
 
     async initReverb(){
         this.convolver.buffer = await getImpulseBuffer(this.audioContext, this.reverbType);
     }
-    
+
     getType(type){
         return (type === "ReverbAndDelay")
     }

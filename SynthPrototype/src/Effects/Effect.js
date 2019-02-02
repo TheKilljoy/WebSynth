@@ -10,7 +10,7 @@ export default class Effect{
         if(new.target   === Effect) {
             throw new TypeError("This is an abstract class and thus can not be instantiated.")
         }
-        
+
         if(this.apply === undefined){
             throw new TypeError("The method apply() must be implemented.")
         }

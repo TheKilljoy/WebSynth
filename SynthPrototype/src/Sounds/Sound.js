@@ -28,7 +28,7 @@ export default class Sound {
         //Do the Attack Delay Sustain stuff
         var volumeForPress = velocity/127;
         //Apply all effects on sound
-        this.effectChain.applyEffects();
+        this.effectChain.applyEffects(this.audiocontext);
         this.volume.gain.cancelScheduledValues(0);
         this.volume.gain.setValueAtTime(0, now);
         this.volume.gain.linearRampToValueAtTime(volumeForPress, now + this.adsr.attack);
@@ -42,6 +42,9 @@ export default class Sound {
         this.volume.gain.cancelScheduledValues(0);
         this.volume.gain.setValueAtTime(this.volume.gain.value, now);
         this.volume.gain.linearRampToValueAtTime(0, now + this.adsr.release);
+        for (let soundfragment of this.soundfragments) {
+            soundfragment.stop(this.adsr.release);
+        }
 
     }
     //connects this this gain node to another node (probably the master volume of the voices node)

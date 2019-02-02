@@ -19,8 +19,9 @@ export default class Tremolo extends Effect{
         this.lfo.start();
     }
 
-    apply(){
+    apply(gainNode){
         this.lfoRange.connect(this.volumeNode.gain);
+        return gainNode;
     }
 
     getType(type){

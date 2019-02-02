@@ -3,6 +3,7 @@ import MidiToFreq from "./MidiToFreq.js";
 //SoundFragment class contains everything a oscillator needs to be configured
 export default class Soundfragment {
     constructor(synthSound, audiocontext) {
+        this.audiocontext = audiocontext;
         this.oscNode = audiocontext.createOscillator();
         this.note = synthSound.synthOctave.value * 12; //Important! this defines how much the note is under or above the node played!
         this.oscNode.type = synthSound.synthOsc.value;
@@ -28,6 +29,10 @@ export default class Soundfragment {
     //connect a node to the frequency of this oscillator
     connectToOscillatorGain(connector){
         connector.connect(this.volume.gain);
+    }
+
+    stop(time){
+        this.oscNode.stop(this.audiocontext.currentTime + time);
     }
 
     start(){

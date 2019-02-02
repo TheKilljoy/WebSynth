@@ -15,11 +15,17 @@ export default class Delay extends Effect{
         }
         this.feedback.gain.value = delayDuration; // 0 = no feedback, 1 = repeating "forever"
     }
-    apply(){
+    apply(gainNode){
         this.delay.connect(this.feedback);
         this.feedback.connect(this.delay);
         this.volumeNode.connect(this.delay);
-        this.delay.connect(this.audioContext.destination);
+
+        if(gainNode == null)
+        {
+            return this.delay;
+        }
+        gainNode.connect(this.delay);
+        return this.delay;
     }
     
     getType(type){
