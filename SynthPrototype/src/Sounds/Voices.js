@@ -38,6 +38,8 @@ export default class Voices {
         this.synthFilter = document.querySelector('synth-filter')
         this.synthDelay = document.querySelector('synth-delay')
         this.synthReverb = document.querySelector('synth-reverb')
+        this.synthTremolo = document.querySelector('synth-tremolo')
+        this.synthVibrato = document.querySelector('synth-vibrato')
 
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([
@@ -45,8 +47,8 @@ export default class Voices {
             new Reverb(this.synthReverb, this.masterVolume, this.audiocontext),
             new Delay(this.synthDelay, this.masterVolume, this.audiocontext),
             new ReverbAndDelay(ReverbType.type("SmallHexagon1"), 1, 0.5, this.masterVolume, this.audiocontext),
-            new Vibrato(5, 100, "sine", this.masterVolume, this.audiocontext),
-            new Tremolo(2, 1, "sine", this.masterVolume, this.audiocontext),
+            new Vibrato(this.synthTremolo, this.masterVolume, this.audiocontext),
+            new Tremolo(this.synthVibrato, this.masterVolume, this.audiocontext),
             new Compressor(-40, 20, 2, 0.0, 0.25, this.masterVolume, this.audiocontext)
         ]);
 

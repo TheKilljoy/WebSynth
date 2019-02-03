@@ -5,16 +5,13 @@ import Effect from "./Effect.js";
 //has to parameters to change: frequency and range.
 //range defines how "strong" the effect is and "frequency" how fast
 export default class Tremolo extends Effect{
-    constructor(frequency, range, waveType, volumeNode, audioContext){
+    constructor(synthTremolo, volumeNode, audioContext){
         super(volumeNode, audioContext);
-        this.frequency = frequency;
-        this.range = range;
-        this.waveType = waveType;
         this.lfo = audioContext.createOscillator();
-        this.lfo.frequency.value = frequency;
-        this.lfo.type = waveType;
+        this.lfo.frequency.value = synthTremolo.synthKnobFrequency.value;
+        this.lfo.type = synthTremolo.synthOsc.value;
         this.lfoRange = audioContext.createGain();
-        this.lfoRange.gain.value = range;
+        this.lfoRange.gain.value = 1;
         this.lfo.connect(this.lfoRange);
         this.lfo.start();
     }

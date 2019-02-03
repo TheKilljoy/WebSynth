@@ -9,6 +9,8 @@ import SynthFilter from "./Components/SynthFilter.js"
 import SynthADSR from "./Components/SynthADSR.js"
 import SynthDelay from "./Components/SynthDelay.js"
 import SynthReverb from "./Components/SynthReverb.js"
+import SynthTremolo from "./Components/SynthTremolo.js"
+import SynthVibrato from "./Components/SynthVibrato.js"
 
 //create an audio context (needs to be into an singleton later)
 var ac = new AudioContext();
