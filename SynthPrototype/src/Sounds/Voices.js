@@ -23,6 +23,12 @@ export default class Voices {
         this.masterVolume.connect(audiocontext.destination);
         this.soundfragments = [];
 
+        //-------------------------------------------
+        this.analyser = audiocontext.createAnalyser();
+        this.analyser.fftSize = 128;
+        this.data = new Float32Array(this.analyser.frequencyBinCount);
+        //-------------------------------------------
+
         //PRECOMPRESSION!!!!
         //prevents oscillators from adding up and clipping when many keys are pressed
         //needs to be configurable!
@@ -38,6 +44,8 @@ export default class Voices {
         this.synthFilter = document.querySelector('synth-filter')
         this.synthDelay = document.querySelector('synth-delay')
         this.synthReverb = document.querySelector('synth-reverb')
+
+        this.masterVolume.connect(this.analyser);
 
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([
@@ -69,6 +77,10 @@ export default class Voices {
         this.masterVolume.gain.value = volume;
     }
 
+    getAnalyserData(){
+      console.log(this.data);
+    }
+
     //adds a sound if it isn't pressed yet. if it is already added then it does nothing
     addVoice(velocity, note) {
         if (typeof this.dictionary[note] == 'undefined') {
@@ -97,8 +109,16 @@ export default class Voices {
             //apply all effects on the sound
             //this.effectChain.applyEffects();
         }
+        this.analyser.getFloatFrequencyData(this.data);
+        //getAnalyserData(this.data);
+        //console.log("voices1: " + this.data);
+        //return this.data;
 
     }
+
+
+
+
     //removes a sound if it isn't played anymore
     removeVoice(note) {
         if (typeof this.dictionary[note] != 'undefined') {
