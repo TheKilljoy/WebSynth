@@ -32,7 +32,8 @@ inputEventHandler.registerMidiEvents();
 inputEventHandler.addDownEventBehaviour(function (event) {
     valueAnalyse = voices.addVoice(event.velocity, event.note);
     //console.log("AnalyserNode: " + valueAnalyse);
-    prueba(valueAnalyse);
+    getData(valueAnalyse);
+    printData();
     voices.addVoice(event.velocity, event.note);
 });
 //at buttonrelease

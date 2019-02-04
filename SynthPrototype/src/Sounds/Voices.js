@@ -25,7 +25,7 @@ export default class Voices {
 
         //-------------------------------------------
         this.analyser = audiocontext.createAnalyser();
-        this.analyser.fftSize = 128;
+        this.analyser.fftSize = 256;
         this.data = new Float32Array(this.analyser.frequencyBinCount);
         //-------------------------------------------
 
@@ -103,10 +103,17 @@ export default class Voices {
             //apply all effects on the sound
             //this.effectChain.applyEffects();
         }
+
+
         this.analyser.getFloatFrequencyData(this.data);
+        var bufferLength = this.analyser.frequencyBinCount;
+        // console.log(bufferLength);
+        var dataArray = new Uint8Array(bufferLength);
+        this.analyser.getByteFrequencyData(dataArray);
+        //console.log("Nielda: " + dataArray);
         //getAnalyserData(this.data);
         //console.log("voices1: " + this.data);
-        return this.data;
+        return dataArray;
 
     }
 

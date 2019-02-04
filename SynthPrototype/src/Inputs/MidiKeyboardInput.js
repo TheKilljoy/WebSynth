@@ -15,7 +15,7 @@ export default class MidiKeyboardInput
                 this.midiFailure
             );
         } else {
-            // console.log("Browser doesn't support Midi Access. Try Google Chrome.");
+            console.log("Browser doesn't support Midi Access. Try Google Chrome.");
         }
     }
 

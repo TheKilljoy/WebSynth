@@ -12,34 +12,38 @@ var bufferLength;
 var dataArray;
 var canvas;
 
-var analyserData;
+var analyserData = new Array(128+1).join('0').split('').map(parseFloat);
+// console.log("LLena de ceros " + analyserData.length + " " +  analyserData);
 // var ac = new AudioContext();
 // var voices = new Voices(ac);
 // console.log(voices.getAudioContext());
 
-function prueba(data){
+function getData(data){
   analyserData = data;
+}
 
+function printData(){
+  console.log("Verga esta: " + analyserData);
 }
 
 //Wird gezeigt wenn geladen
 function preload(){
-    song = loadSound("src/media/Chopin - Nocturne op.9 No.2.mp3");
-    button = createButton("Play");
-    button.mousePressed(togglePlaying);
-    slider = createSlider(0,1,0.5,0.01);
+    //song = loadSound("src/media/Chopin - Nocturne op.9 No.2.mp3");
+    // button = createButton("Play");
+    // button.mousePressed(togglePlaying);
+    // slider = createSlider(0,1,0.5,0.01);
     // voices = new Voices(getAudioContext());
 }
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
   //song.play();
+  colorMode(HSB);
   canvas = createCanvas(windowWidth,windowHeight);
   canvas.position(0,0);
   canvas.style('z-index', '-1');
   fft = new p5.FFT(0.8);
   widthBand = (width / 128);
-  console.log(analyserData);
   //passValue();
   //console.log(getAudioContext());
 }
@@ -50,34 +54,29 @@ function draw() {
   //Berechnet Amplitudenwerte im Frequenzbereich -> Zu Array
   var spectrum = fft.analyze();
   noStroke();
-  for (var i = 0; i<spectrum.length; i++) {
-    var amp = spectrum[i];
+  for (var i = 0; i<analyserData.length; i++) {
+    var amp = analyserData[i];
     var y = map(amp, 0, 256, height, 0);
-    fill(i, 255, 255);
+    fill(i + map(mouseX, 0, windowWidth, -20, 100), 255, 255);
     rect(i*widthBand,y,widthBand-2, height - y );
   }
-  //voices.getAnalyserData();
 
-  //Set Volume according to slider
-  song.setVolume(slider.value());
+  // for (var i = 0; i<spectrum.length; i++) {
+  //   var amp = spectrum[i];
+  //   var y = map(amp, 0, 256, height, 0);
+  //   fill(i + map(mouseX, 0, windowWidth, -20, 100), 255, 255);
+  //   rect(i*widthBand,y,widthBand-2, height - y );
+  // }
+
 }
 
-  // voices.getData();
-  // voices.getData();
-  // voices.getData();
-  // voices.getData();
-  // voices.getData();
-  // voices.getData();
-  // voices.getData();
-  // voices.getData();
-
-//Play/Pause Button
-function togglePlaying(){
-  if(!song.isPlaying()){
-    song.play();
-    button.html("Pause");
-  }else if(song.isPlaying()){
-    song.pause();
-    button.html("Play");
-  }
-}
+// //Play/Pause Button
+// function togglePlaying(){
+//   if(!song.isPlaying()){
+//     song.play();
+//     button.html("Pause");
+//   }else if(song.isPlaying()){
+//     song.pause();
+//     button.html("Play");
+//   }
+// }
