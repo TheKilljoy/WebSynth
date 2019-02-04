@@ -51,10 +51,10 @@ export default class Voices {
             console.log(event.data)
         })
 
-        this.synthReverb.synthSwitch.addEventListener('switch', event => {
-            this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Reverb"));
-            console.log(event.data)
-        })
+        //this.synthReverb.synthSwitch.addEventListener('switch', event => {
+            //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Reverb"));
+            //console.log(event.data)
+        //})
 
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([

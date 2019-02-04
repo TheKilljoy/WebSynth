@@ -21,6 +21,8 @@ body{
 .l > *, .r > * {
     display: inline-block;
     white-space: nowrap;
+    vertical-align: top;
+    height: 100%;
 }
 
 button {
