@@ -26,7 +26,7 @@ export default class Voices {
         //-------------------------------------------
         this.analyser = audiocontext.createAnalyser();
         this.analyser.fftSize = 128;
-        this.data = new Float32Array(this.analyser.frequencyBinCount);
+        this.data = new Uint8Array(this.analyser.frequencyBinCount);
         //-------------------------------------------
 
         //PRECOMPRESSION!!!!
@@ -103,20 +103,7 @@ export default class Voices {
             //apply all effects on the sound
             //this.effectChain.applyEffects();
         }
-
-
-        this.analyser.getFloatFrequencyData(this.data);
-        var bufferLength = this.analyser.frequencyBinCount;
-        // console.log(bufferLength);
-        var dataArray = new Uint8Array(bufferLength);
-        this.analyser.getByteFrequencyData(dataArray);
-        //console.log("Nielda: " + dataArray);
-        //getAnalyserData(this.data);
-        //console.log("voices1: " + this.data);
-        return dataArray;
-
     }
-
 
     //removes a sound if it isn't played anymore
     removeVoice(note) {
@@ -125,4 +112,9 @@ export default class Voices {
             delete this.dictionary[note];
         }
     }
+    getData(){
+        this.analyser.getByteFrequencyData(this.data);
+        return this.data;
+    }
 }
+

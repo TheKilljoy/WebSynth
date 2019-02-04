@@ -1,15 +1,4 @@
-var fft;
-var button;
-var song;
-var slider;
-var audiocontext;
-var out;
-var prue;
-var source;
-var analyser;
 var voices;
-var bufferLength;
-var dataArray;
 var canvas;
 
 var analyserData = new Array(64+1).join('0').split('').map(parseFloat);
@@ -18,12 +7,8 @@ var analyserData = new Array(64+1).join('0').split('').map(parseFloat);
 // var voices = new Voices(ac);
 // console.log(voices.getAudioContext());
 
-function getData(data){
-  analyserData = data;
-}
-
-function printData(){
-  console.log("Verga esta: " + analyserData.length);
+function setVoices(_voices){
+  voices = _voices;
 }
 
 //Wird gezeigt wenn geladen
@@ -53,6 +38,7 @@ function draw() {
   background(61);
   //Berechnet Amplitudenwerte im Frequenzbereich -> Zu Array
   //var spectrum = fft.analyze();
+  analyserData = voices.getData();
   noStroke();
   for (var i = 0; i<analyserData.length; i++) {
     var amp = analyserData[i];

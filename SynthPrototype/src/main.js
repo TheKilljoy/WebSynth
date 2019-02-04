@@ -19,6 +19,8 @@ var voices = new Voices(ac);
 //sets the master volume lower, because at 1.0 it is really loud
 voices.setVolume(1.0);
 
+setVoices(voices);
+
 //create an InputEventHandler object
 var inputEventHandler = new InputEventHandler();
 //Register both, Keyboard and Midikeyboard events
@@ -30,10 +32,6 @@ inputEventHandler.registerMidiEvents();
 //Register a function that is executed if a registered event (at the moment keyboard and midikeyboard events) is fired
 //at buttonpress
 inputEventHandler.addDownEventBehaviour(function (event) {
-    valueAnalyse = voices.addVoice(event.velocity, event.note);
-    //console.log("AnalyserNode: " + valueAnalyse);
-    getData(valueAnalyse);
-    printData();
     voices.addVoice(event.velocity, event.note);
 });
 //at buttonrelease
