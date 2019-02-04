@@ -33,6 +33,7 @@ inputEventHandler.registerMidiEvents();
 //at buttonpress
 inputEventHandler.addDownEventBehaviour(function (event) {
     voices.addVoice(event.velocity, event.note);
+    spawnCircle();
 });
 //at buttonrelease
 inputEventHandler.addUpEventBehaviour(function (event) {

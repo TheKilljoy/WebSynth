@@ -25,7 +25,7 @@ export default class Voices {
 
         //-------------------------------------------
         this.analyser = audiocontext.createAnalyser();
-        this.analyser.fftSize = 256;
+        this.analyser.fftSize = 128;
         this.data = new Uint8Array(this.analyser.frequencyBinCount);
         //-------------------------------------------
 
@@ -102,6 +102,7 @@ export default class Voices {
             s.onPress(note, velocity);
             //apply all effects on the sound
             //this.effectChain.applyEffects();
+            //keyPressedInBoth();
         }
     }
 
@@ -112,6 +113,7 @@ export default class Voices {
             delete this.dictionary[note];
         }
     }
+
     getData(){
         this.analyser.getByteFrequencyData(this.data);
         return this.data;
