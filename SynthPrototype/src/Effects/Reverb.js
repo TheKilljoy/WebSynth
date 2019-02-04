@@ -22,7 +22,11 @@ export default class Reverb extends Effect{
     }
 
     async initReverb(){
-        this.convolver.buffer = await getImpulseBuffer(this.audioContext, this.reverbType);
+        if (this.reverbType != null) {
+            this.convolver.buffer = await getImpulseBuffer(this.audioContext, this.reverbType);
+        } else {
+            this.convolver.buffer = null;
+        }
     }
 
     apply(gainNode){

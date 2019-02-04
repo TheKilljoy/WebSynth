@@ -41,21 +41,6 @@ export default class Voices {
         this.synthTremolo = document.querySelector('synth-tremolo')
         this.synthVibrato = document.querySelector('synth-vibrato')
 
-        this.synthTremolo.synthSwitch.addEventListener('switch', event => {
-            this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
-            console.log(event.data)
-        })
-
-        this.synthVibrato.synthSwitch.addEventListener('switch', event => {
-            this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Vibrato"));
-            console.log(event.data)
-        })
-
-        //this.synthReverb.synthSwitch.addEventListener('switch', event => {
-            //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Reverb"));
-            //console.log(event.data)
-        //})
-
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([
             new Filter(this.synthFilter, this.masterVolume, this.audiocontext),
@@ -70,12 +55,12 @@ export default class Voices {
 
         //example for deactivating an effect - effects are switched on by creation, so if
         //the line is not commented out they are deactivated
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Filter"));
+        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Filter"));
         //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Reverb"));
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Delay"));
+        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Delay"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("ReverbAndDelay"));
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Vibrato"));
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
+        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Vibrato"));
+        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Compressor"));
     }
 

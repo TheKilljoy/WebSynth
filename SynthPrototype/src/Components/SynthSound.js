@@ -17,8 +17,8 @@ export default class SynthSound extends HTMLElement {
         <synth-module name="Oscillator">
             <synth-osc></synth-osc>
             <synth-octave></synth-octave>
-            <synth-knob>PITCH</synth-knob>
-            <synth-knob>LEVEL</synth-knob>
+            <synth-knob min="-12" max="12" unit="semitones">PITCH</synth-knob>
+            <synth-knob min="0" max="100" unit="%" value="100">LEVEL</synth-knob>
         </synth-module>
         `
     }

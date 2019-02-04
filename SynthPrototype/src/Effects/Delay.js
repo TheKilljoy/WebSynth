@@ -15,12 +15,12 @@ export default class Delay extends Effect{
         this.delayDuration = synthDelay.synthKnobDuration.value / 100;
         this.feedback.gain.value = this.delayDuration;
 
-        synthDelay.synthKnobTime.addEventListener('move', () => {
-            this.delay.delayTime.value = synthDelay.synthKnobTime.value / 100;
+        synthDelay.synthKnobTime.addEventListener('move', event => {
+            this.delay.delayTime.value = event.data;
         });
 
-        synthDelay.synthKnobDuration.addEventListener('move', () => {
-            this.delayDuration = synthDelay.synthKnobDuration.value / 100;
+        synthDelay.synthKnobDuration.addEventListener('move', event => {
+            this.delayDuration = event.data;
             this.feedback.gain.value = this.delayDuration;
         });
     }

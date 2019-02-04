@@ -14,9 +14,8 @@ export default class SynthVibrato extends HTMLElement {
 
         return html`
         <synth-module name="LFO 2 – Vibrato">
-            <synth-switch></synth-switch>
             <synth-osc></synth-osc>
-            <synth-knob>Frequency</synth-knob>
+            <synth-knob min="0" max="20" unit="Hz" value="0">Frequency</synth-knob>
         </synth-module>
         `
     }

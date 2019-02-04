@@ -9,10 +9,15 @@ export default class SynthKnob extends HTMLElement {
         slider.addEventListener('input', (event) => {
             let value = slider.value
             this.value = value
+
+            this.shadowRoot.querySelector('#value').innerHTML = value + " " + this.getAttribute("unit")
+
             let moveEvent = new Event('move', {bubbles: true, composed: true})
             moveEvent.data = value
             this.shadowRoot.dispatchEvent(moveEvent)
         })
+
+        this.shadowRoot.querySelector('#value').innerHTML = slider.value + " " + this.getAttribute("unit")
     }
 
     template() {
@@ -54,7 +59,8 @@ export default class SynthKnob extends HTMLElement {
         }
         </style>
         <div class="wrapper">
-            <input id="slider" type="range" min="1" max="100">
+            <p id="value">0</p>
+            <input id="slider" type="range" min="${this.getAttribute("min")}" max="${this.getAttribute("max")}" value="${this.getAttribute("value")}">
             <p><slot></slot></p>
         </div>
         `
