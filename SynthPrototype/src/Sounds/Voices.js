@@ -25,7 +25,7 @@ export default class Voices {
 
         //-------------------------------------------
         this.analyser = audiocontext.createAnalyser();
-        this.analyser.fftSize = 256;
+        this.analyser.fftSize = 128;
         this.data = new Float32Array(this.analyser.frequencyBinCount);
         //-------------------------------------------
 

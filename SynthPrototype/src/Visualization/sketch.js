@@ -12,7 +12,7 @@ var bufferLength;
 var dataArray;
 var canvas;
 
-var analyserData = new Array(128+1).join('0').split('').map(parseFloat);
+var analyserData = new Array(64+1).join('0').split('').map(parseFloat);
 // console.log("LLena de ceros " + analyserData.length + " " +  analyserData);
 // var ac = new AudioContext();
 // var voices = new Voices(ac);
@@ -23,7 +23,7 @@ function getData(data){
 }
 
 function printData(){
-  console.log("Verga esta: " + analyserData);
+  console.log("Verga esta: " + analyserData.length);
 }
 
 //Wird gezeigt wenn geladen
@@ -39,11 +39,11 @@ function setup() {
   createCanvas(windowWidth,windowHeight);
   //song.play();
   colorMode(HSB);
-  canvas = createCanvas(windowWidth,windowHeight);
+  canvas = createCanvas(windowWidth-20,windowHeight-19);
   canvas.position(0,0);
   canvas.style('z-index', '-1');
   fft = new p5.FFT(0.8);
-  widthBand = (width / 128);
+  widthBand = (width / 64);
   //passValue();
   //console.log(getAudioContext());
 }
@@ -52,13 +52,13 @@ function setup() {
 function draw() {
   background(61);
   //Berechnet Amplitudenwerte im Frequenzbereich -> Zu Array
-  var spectrum = fft.analyze();
+  //var spectrum = fft.analyze();
   noStroke();
   for (var i = 0; i<analyserData.length; i++) {
     var amp = analyserData[i];
     var y = map(amp, 0, 256, height, 0);
     fill(i + map(mouseX, 0, windowWidth, -20, 100), 255, 255);
-    rect(i*widthBand,y,widthBand-2, height - y );
+    rect(i*widthBand,y,widthBand-2, windowHeight - y );
   }
 
   // for (var i = 0; i<spectrum.length; i++) {
@@ -68,6 +68,10 @@ function draw() {
   //   rect(i*widthBand,y,widthBand-2, height - y );
   // }
 
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 // //Play/Pause Button

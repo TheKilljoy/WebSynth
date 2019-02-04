@@ -17,7 +17,7 @@ var ac = new AudioContext();
 //creates a voices object
 var voices = new Voices(ac);
 //sets the master volume lower, because at 1.0 it is really loud
-voices.setVolume(0.2);
+voices.setVolume(1.0);
 
 //create an InputEventHandler object
 var inputEventHandler = new InputEventHandler();
