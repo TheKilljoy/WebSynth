@@ -11,6 +11,7 @@ import SynthDelay from "./Components/SynthDelay.js"
 import SynthReverb from "./Components/SynthReverb.js"
 import SynthTremolo from "./Components/SynthTremolo.js"
 import SynthVibrato from "./Components/SynthVibrato.js"
+import SynthSwitch from "./Components/SynthSwitch.js"
 
 //create an audio context (needs to be into an singleton later)
 var ac = new AudioContext();

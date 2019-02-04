@@ -41,6 +41,21 @@ export default class Voices {
         this.synthTremolo = document.querySelector('synth-tremolo')
         this.synthVibrato = document.querySelector('synth-vibrato')
 
+        this.synthTremolo.synthSwitch.addEventListener('switch', event => {
+            this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
+            console.log(event.data)
+        })
+
+        this.synthVibrato.synthSwitch.addEventListener('switch', event => {
+            this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Vibrato"));
+            console.log(event.data)
+        })
+
+        this.synthReverb.synthSwitch.addEventListener('switch', event => {
+            this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Reverb"));
+            console.log(event.data)
+        })
+
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([
             new Filter(this.synthFilter, this.masterVolume, this.audiocontext),
