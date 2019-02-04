@@ -6,7 +6,7 @@ export default class Filter extends Effect {
     constructor(synthFilter, volumeNode, audioContext) {
         super(volumeNode, audioContext)
         this.cutoffFrequency = synthFilter.synthKnobCutoff.value * 200
-        console.log(this.cutoffFrequency);
+        // console.log(this.cutoffFrequency);
         this.volumeNode = volumeNode
         this.biquad = audioContext.createBiquadFilter()
         this.biquad.type = "lowshelf"

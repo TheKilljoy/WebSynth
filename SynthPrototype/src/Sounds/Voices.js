@@ -70,15 +70,9 @@ export default class Voices {
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Compressor"));
     }
 
-
-
     //change the master volume
     setVolume(volume){
         this.masterVolume.gain.value = volume;
-    }
-
-    getAnalyserData(){
-      console.log(this.data);
     }
 
     //adds a sound if it isn't pressed yet. if it is already added then it does nothing
@@ -112,11 +106,9 @@ export default class Voices {
         this.analyser.getFloatFrequencyData(this.data);
         //getAnalyserData(this.data);
         //console.log("voices1: " + this.data);
-        //return this.data;
+        return this.data;
 
     }
-
-
 
 
     //removes a sound if it isn't played anymore

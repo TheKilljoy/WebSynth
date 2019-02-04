@@ -18,13 +18,6 @@ var ac = new AudioContext();
 var voices = new Voices(ac);
 //sets the master volume lower, because at 1.0 it is really loud
 voices.setVolume(0.2);
-// voices.getAnalyserData();
-voices.getData();
-
-// function passValue(){
-//   console.log("dope");
-// }
-
 
 //create an InputEventHandler object
 var inputEventHandler = new InputEventHandler();
@@ -32,17 +25,22 @@ var inputEventHandler = new InputEventHandler();
 inputEventHandler.registerKeyboardEvents();
 inputEventHandler.registerMidiEvents();
 
+
+
 //Register a function that is executed if a registered event (at the moment keyboard and midikeyboard events) is fired
 //at buttonpress
 inputEventHandler.addDownEventBehaviour(function (event) {
     valueAnalyse = voices.addVoice(event.velocity, event.note);
-    //console.log("main: " + valueAnalyse);
+    //console.log("AnalyserNode: " + valueAnalyse);
+    prueba(valueAnalyse);
     voices.addVoice(event.velocity, event.note);
 });
 //at buttonrelease
 inputEventHandler.addUpEventBehaviour(function (event) {
     voices.removeVoice(event.note);
 });
+
+
 
 document.querySelector('#add-sound').onclick = function() {
     console.log("HELLO");
