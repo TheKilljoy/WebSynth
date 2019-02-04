@@ -36,6 +36,5 @@ inputEventHandler.addUpEventBehaviour(function (event) {
 });
 
 document.querySelector('#add-sound').onclick = function() {
-    console.log("HELLO");
-    document.body.append(new SynthSound())
+    document.querySelector('.l').append(new SynthSound())
 }

@@ -1,25 +1,43 @@
 ::selection{background-color:none; color:inherit;}
 
 body{
+    margin: 0;
   background-color: #333;
 }
 
-.l {
+.l, .r {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100vh;
-    overflow: scroll;
+    width: 100vw;
+    height: 50vh;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
 }
 
 .r {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 50%;
-    height: 100vh;
-    overflow: scroll;
+    top: 50vh;
+}
+
+.l > *, .r > * {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+button {
+    display: block;
+    margin: 3px auto;
+    padding: 6px;
+    width: 128px;
+    height: 32px;
+    color: #FFF;
+    background-color: rgba(0,0,0,0);
+    font-size: 1em;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+}
+button:hover {
+    border: 1px solid rgba(255,255,255,.5);
 }
 
 .musickeyboard{

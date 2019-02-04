@@ -8,12 +8,22 @@ export default class Tremolo extends Effect{
     constructor(synthTremolo, volumeNode, audioContext){
         super(volumeNode, audioContext);
         this.lfo = audioContext.createOscillator();
-        this.lfo.frequency.value = synthTremolo.synthKnobFrequency.value;
-        this.lfo.type = synthTremolo.synthOsc.value;
         this.lfoRange = audioContext.createGain();
         this.lfoRange.gain.value = 1;
+
+        this.lfo.frequency.value = synthTremolo.synthKnobFrequency.value;
+        this.lfo.type = synthTremolo.synthOsc.value;
+
         this.lfo.connect(this.lfoRange);
         this.lfo.start();
+
+        synthTremolo.synthKnobFrequency.addEventListener('move', event => {
+            this.lfo.frequency.value = event.data;
+        });
+
+        synthTremolo.synthOsc.addEventListener('select', event => {
+            this.lfo.type = event.data;
+        });
     }
 
     apply(gainNode){

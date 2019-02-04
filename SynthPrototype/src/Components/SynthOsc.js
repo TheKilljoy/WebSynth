@@ -14,6 +14,10 @@ export default class SynthOsc extends HTMLElement {
             button.addEventListener('click', e => {
                 this.shadowRoot.querySelector('.selected').classList.remove('selected')
                 button.classList.add('selected')
+
+                let selectEvent = new Event('select', {bubbles: true, composed: true})
+                selectEvent.data = this.value;
+                this.shadowRoot.dispatchEvent(selectEvent)
             })
         )
     }

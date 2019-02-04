@@ -19,11 +19,6 @@ export default class SynthKnob extends HTMLElement {
         const html = String.raw
 
         return html`
-        <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="./node_modules/jquery-knob/js/jquery.knob.js"></script>
-        <script>
-            $("#slider").knob()
-        </script>
         <style>
         .wrapper {
             display: inline-block;

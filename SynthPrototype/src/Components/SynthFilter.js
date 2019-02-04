@@ -12,7 +12,7 @@ export default class SynthFilter extends HTMLElement {
 
         return html`
         <synth-module name="Filter">
-            <synth-knob>CUTOFF</synth-knob>
+            <synth-knob>Cutoff</synth-knob>
         </synth-module>
         `
     }

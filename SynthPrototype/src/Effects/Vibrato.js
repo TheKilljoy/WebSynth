@@ -15,6 +15,14 @@ export default class Vibrato extends Effect{
         this.lfo.connect(this.lfoRange);
         this.lfo.start();
         this.soundfragments = []
+
+        synthVibrato.synthKnobFrequency.addEventListener('move', event => {
+            this.lfo.frequency.value = event.data;
+        });
+
+        synthVibrato.synthOsc.addEventListener('select', event => {
+            this.lfo.type = event.data;
+        });
     }
 
     apply(gainNode){
