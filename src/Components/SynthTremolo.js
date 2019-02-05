@@ -17,7 +17,7 @@ export default class SynthTremolo extends HTMLElement {
         <synth-module name="LFO 1 – Tremolo">
             <synth-osc></synth-osc>
             <synth-knob min="0" max="20" unit="Hz" value="0">Frequency</synth-knob>
-            <synth-knob min="0" max="100" unit="%" value="0">Strength</synth-knob>
+            <synth-knob min="0" max="100" unit="%" value="100">Strength</synth-knob>
         </synth-module>
         `
     }

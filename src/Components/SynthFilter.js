@@ -4,7 +4,8 @@ export default class SynthFilter extends HTMLElement {
 
         const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML = this.template()
 
-        this.synthKnobCutoff = this.shadowRoot.querySelector('synth-knob')
+        this.synthKnobCutoff = this.shadowRoot.querySelectorAll('synth-knob')[0]
+        this.synthKnobQ = this.shadowRoot.querySelectorAll('synth-knob')[1]
     }
 
     template() {
@@ -12,7 +13,8 @@ export default class SynthFilter extends HTMLElement {
 
         return html`
         <synth-module name="Filter">
-            <synth-knob min="10" max="10000" unit="Hz" value="20000">Cutoff</synth-knob>
+            <synth-knob min="20" max="20000" unit="Hz" value="20000">Cutoff Frequency</synth-knob>
+            <synth-knob min="0" max="12" unit="dB" value="0">Resonance</synth-knob>
         </synth-module>
         `
     }

@@ -11,7 +11,7 @@ export default class ReverbAndDelay extends Effect{
     constructor(synthReverb, synthDelay, volumeNode, audioContext){
         super(volumeNode, audioContext);
 
-        this.reverbType = ReverbType.type(synthReverb.value);
+        this.reverbType = null
         this.convolver = audioContext.createConvolver();
         this.initReverb();
 
@@ -20,12 +20,7 @@ export default class ReverbAndDelay extends Effect{
         this.source = audioContext.createBufferSource();
         this.feedback = audioContext.createGain();
 
-        this.delayDuration = 0
-        this.feedback.gain.value = this.delayDuration; // 0 = no feedback, 1 = repeating "forever"
-
         this.volume = audioContext.createGain();
-
-        // ADDED
 
         synthReverb.addEventListener('select', event => {
             this.reverbType = ReverbType.type(event.data);
@@ -33,14 +28,14 @@ export default class ReverbAndDelay extends Effect{
         })
 
         synthDelay.synthKnobTime.addEventListener('move', event => {
-            this.delay.delayTime.value = event.data;
+            this.delay.delayTime.value = event.data / 1000;
         });
 
         synthDelay.synthKnobDuration.addEventListener('move', event => {
-            this.delayDuration = event.data / 100;
-            this.feedback.gain.value = this.delayDuration;
+            this.feedback.gain.value = event.data / 100;
         });
     }
+
     apply(gainNode){
         //feedback loop
         this.delay.connect(this.feedback);
@@ -49,10 +44,6 @@ export default class ReverbAndDelay extends Effect{
         //apply reverb
         this.volumeNode.connect(this.convolver);
         this.convolver.connect(this.delay);
-        //connect everything to destination
-
-        // this.convolver.connect(this.audioContext.destination);
-        // this.delay.connect(this.audioContext.destination);
 
         this.convolver.connect(this.volume);
         this.delay.connect(this.volume);
@@ -66,7 +57,11 @@ export default class ReverbAndDelay extends Effect{
     }
 
     async initReverb(){
-        this.convolver.buffer = await getImpulseBuffer(this.audioContext, this.reverbType);
+        if (this.reverbType != null) {
+            this.convolver.buffer = await getImpulseBuffer(this.audioContext, this.reverbType);
+        } else {
+            this.convolver.buffer = null;
+        }
     }
 
     getType(type){

@@ -5,29 +5,27 @@ export default class Filter extends Effect {
 
     constructor(synthFilter, volumeNode, audioContext) {
         super(volumeNode, audioContext)
-        this.volumeNode = volumeNode
         this.biquad = audioContext.createBiquadFilter()
-        this.biquad.type = "highpass"
-
-        this.cutoffFrequency = synthFilter.synthKnobCutoff.value * 200
-
-        this.biquad.frequency.value = 0
-        this.biquad.frequency.setValueAtTime(0, audioContext.currentTime)
+        this.biquad.type = "lowpass"
 
         synthFilter.synthKnobCutoff.addEventListener('move', event => {
-            this.cutoffFrequency = event.data
-            this.biquad.frequency.setValueAtTime(this.cutoffFrequency, audioContext.currentTime)
-            console.log(event.data)
+            this.biquad.frequency.setValueAtTime(event.data, audioContext.currentTime)
+        });
+
+        synthFilter.synthKnobQ.addEventListener('move', event => {
+            this.biquad.Q.setValueAtTime(event.data, audioContext.currentTime)
         });
     }
 
     apply(gainNode) {
+        this.volumeNode.connect(this.biquad);
+
         if(gainNode == null)
         {
             return this.biquad;
         }
         gainNode.connect(this.biquad);
-        return this.biquad
+        return this.biquad;
     }
 
     getType(type) {
