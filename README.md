@@ -1,3 +1,8 @@
+# WebSynth Beleg
+* s0557967 – Robin Meier
+* s0557917 – Phillip Friedel
+* s0559811 – Julian Boehm-Tettelbach
+
 # Installation:
 In der Konsole eingeben (ohne Anführungszeichen):
 *  "git clone https://github.com/TheKilljoy/WebSynth.git"
