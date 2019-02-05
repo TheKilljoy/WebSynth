@@ -22,6 +22,11 @@ export default class Vibrato extends Effect{
             this.lfo.frequency.value = event.data;
         });
 
+        synthTremolo.synthKnobStrength.addEventListener('move', event => {
+            this.lfoRange.gain.value = event.data / 100;
+            console.log(event.data / 100)
+        });
+
         synthTremolo.synthOsc.addEventListener('select', event => {
             this.lfo.type = event.data;
         });

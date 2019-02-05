@@ -20,6 +20,10 @@ export default class Tremolo extends Effect{
             this.lfo.frequency.value = event.data;
         });
 
+        synthVibrato.synthKnobStrength.addEventListener('move', event => {
+            this.lfoRange.gain.value = event.data / 100;
+        });
+
         synthVibrato.synthOsc.addEventListener('select', event => {
             this.lfo.type = event.data;
         });

@@ -3,6 +3,7 @@ export default class SynthKnob extends HTMLElement {
         super()
 
         this.value = 50
+        this.step = (this.getAttribute("step") != null) ? this.getAttribute("step") : 1
         const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML = this.template()
 
         let slider = this.shadowRoot.querySelector('#slider')
@@ -60,7 +61,7 @@ export default class SynthKnob extends HTMLElement {
         </style>
         <div class="wrapper">
             <p id="value">0</p>
-            <input id="slider" type="range" min="${this.getAttribute("min")}" max="${this.getAttribute("max")}" value="${this.getAttribute("value")}">
+            <input id="slider" type="range" min="${this.getAttribute("min")}" max="${this.getAttribute("max")}" value="${this.getAttribute("value")}" step="${this.step}">
             <p><slot></slot></p>
         </div>
         `
