@@ -34,6 +34,7 @@ inputEventHandler.registerMidiEvents();
 inputEventHandler.addDownEventBehaviour(function (event) {
     voices.addVoice(event.velocity, event.note);
     spawnCircle();
+    keyPressedFirework();
 });
 //at buttonrelease
 inputEventHandler.addUpEventBehaviour(function (event) {

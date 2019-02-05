@@ -34,7 +34,7 @@ function Firework(x, color){
 }
 
   this.explode = function() {
-    for (var i = 0; i < random(70,500); i++) {
+    for (var i = 0; i < random(70,200); i++) {
       var p = new Particle(this.firework.pos.x, this.firework.pos.y, color, false);
       this.particles.push(p);
     }

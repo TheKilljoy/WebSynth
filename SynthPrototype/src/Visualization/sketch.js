@@ -6,8 +6,6 @@ var fireworks = [];
 var gravity;
 var pos;
 var circles = [];
-//let keyboardValue = [81,50,87,51,69,82,53,84,54,90,55,85,73,57,79,48,80,89,83,88,68,67,70,86,66,72,78,74,77,75,188,190,192,173];
-// //                  [2  3  5  6  7  9  0  q  w  e  r  t  z  u  i  o  p  y  s  x  d  c  f  v  b  h  n  j  m  k  ö   ,   .   -];
 
 var analyserData = new Array(64+1).join('0').split('').map(parseFloat);
 
@@ -17,7 +15,7 @@ function setVoices(_voices){
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
-  colorMode(HSB);
+  //colorMode(HSB);
   angleMode(DEGREES);
   canvas = createCanvas(windowWidth-20,windowHeight-19);
   canvas.position(0,0);
@@ -25,32 +23,45 @@ function setup() {
   widthBand = (width / 64);
   gravity = createVector(0,0.2);
   pos = width/34;
-  //blendMode(MULTIPLY);  
 }
 
 
 function draw() {
-  background(10);
+  
+
   analyserData = voices.getData();
   analyserDataRadial = voices.getData();
     switch (counter) {
+        case 0:
+          clear();
+          break;
         case 1:
-            barVisualizer();
-            break;
+          colorMode(HSB);
+          background(0,0,15);
+          //background(10);
+          barVisualizer();
+          break;
         case 2:
-            radialVisualizer();
-            break;
+          colorMode(HSB);
+          background(0,0,0);
+          radialVisualizer();
+          break;
         case 3:
+          colorMode(HSB);
+          background(0,0,0,0.1);
           startFireworks();
-            break;
+          break;
         case 4:
-            drawCircles();
-            break;
+          colorMode(HSB);
+          background(0,0,0);
+          drawCircles();
+          break;
 
     }
 }
 
 function barVisualizer(){
+
   noStroke();
   for (var i = 0; i<analyserData.length; i++) {
     var amp = analyserDataRadial[i];
@@ -61,15 +72,16 @@ function barVisualizer(){
 }
 
 function radialVisualizer(){
+
   translate(windowWidth/2, windowHeight/2);
   for (var i = 0; i<analyserData.length; i++) {
     var angle = map(i, 0, analyserData.length, 0, 360);
     var amp = analyserData[i];
-    var r = map(amp, 0, 256, 150, 1500);
+    var r = map(amp, 0, 256, windowWidth/8, 900);
     var x = r * cos(angle);
     var y = r * sin(angle);
-    stroke(i + map(mouseX, 0, width, -20, 150), 255, 255);
-    strokeWeight(5);
+    stroke(i + map(mouseX, 0, width, -10, 160), 255, 255);
+    strokeWeight(7);
     line(0, 0, x, y);
   }
 }
@@ -78,8 +90,6 @@ function radialVisualizer(){
 function startFireworks(){
   stroke(255);
   strokeWeight(10);
-  colorMode(RGB);
-  background(0,0,0,10);
   for(var i=fireworks.length-1; i>=0; i--){
       fireworks[i].update();
       fireworks[i].show();
@@ -89,21 +99,28 @@ function startFireworks(){
   }
 }
 
+/*
+//------------------------------------------------------
 function waveVisualizer(){
-  var x = 0;
-  stroke(i + map(mouseX, 0, width, -20, 150), 255, 255);
-  strokeWeight(5);
+  //stroke(i + map(mouseX, 0, width, -20, 150), 255, 255);
+  noFill();
   beginShape();
+  strokeWeight(5);
   for (var i = 0; i<analyserData.length; i++) {
-    var amp = analyserDataRadial[i];
-    var y = map(amp, 0, 256, height, 0);
+    var x = map(i, 0, analyserData.length, 0, width);
+    var y = map(analyserData[i], -1, 1, height, 0);
+    vertex(x, y);
+    
+    //var x = analyserDataRadial[i];
+    //var y = map(amp, 0, 256, height, 0);
+    //vertex();
     //fill(i + map(mouseX, 0, windowWidth, -20, 150), 255, 255);
     //rect(i*widthBand,y,widthBand-2, windowHeight - y );
   }
   endShape();
 }
-
-
+//------------------------------------------
+*/
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
@@ -112,14 +129,14 @@ function windowResized() {
 window.onkeyup = function(e) {
    var key = e.keyCode ? e.keyCode : e.which;
 
-   if (key == 107) {
+   if (key == 38) {
        if(counter == 4){
          counter = 0;
        }else{
         counter += 1;
        }
        console.log(counter);
-   }else if (key == 109) {
+   }else if (key == 40) {
        if(counter == 0){
          counter = 4;
        }else{
@@ -130,10 +147,11 @@ window.onkeyup = function(e) {
 
 
 function keyPressedFirework() {
-     for(var i=0; i<keyboardValue.length; i++){
-         fireworks.push(new Firework(i*pos +2, i*7,5));
-       
-     }
+    if(counter == 3){
+      if(fireworks.length<15){
+        fireworks.push(new Firework(random(0, windowWidth) +2, random(0,255)));
+      }
+    }
 }
 
 class Circle_ {
