@@ -16,9 +16,10 @@ export default class ReverbAndDelay extends Effect{
         this.initReverb();
 
         this.delay = audioContext.createDelay();
-        this.delay.delayTime.value = 0; // the time in seconds after which the first delay starts
+        this.delay.delayTime.value = 0.1;
         this.source = audioContext.createBufferSource();
         this.feedback = audioContext.createGain();
+        this.feedback.gain.value = 0
 
         this.volume = audioContext.createGain();
 
@@ -33,27 +34,39 @@ export default class ReverbAndDelay extends Effect{
 
         synthDelay.synthKnobDuration.addEventListener('move', event => {
             this.feedback.gain.value = event.data / 100;
+            console.log(this.feedback.gain.value)
         });
     }
 
     apply(gainNode){
-        //feedback loop
         this.delay.connect(this.feedback);
         this.feedback.connect(this.delay);
-        //feeding the feedbackloop with audio signal that has reverb already applied to it
-        //apply reverb
-        this.volumeNode.connect(this.convolver);
-        this.convolver.connect(this.delay);
 
-        this.convolver.connect(this.volume);
-        this.delay.connect(this.volume);
+        if (this.reverbType == null) {
+            this.volumeNode.connect(this.delay);
 
-        if(gainNode == null)
-        {
+            if(gainNode == null)
+            {
+                return this.delay;
+            }
+            gainNode.connect(this.delay);
+            return this.delay;
+        } else {
+            //feeding the feedbackloop with audio signal that has reverb already applied to it
+            //apply reverb
+            this.volumeNode.connect(this.convolver);
+            this.convolver.connect(this.delay);
+
+            this.convolver.connect(this.volume);
+            this.delay.connect(this.volume);
+
+            if(gainNode == null)
+            {
+                return this.volume;
+            }
+            gainNode.connect(this.volume);
             return this.volume;
         }
-        gainNode.connect(this.volume);
-        return this.volume;
     }
 
     async initReverb(){
