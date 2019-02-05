@@ -8,7 +8,7 @@ export default class Filter extends Effect {
 
         this.volumeNode = volumeNode
         this.biquad = audioContext.createBiquadFilter()
-        this.biquad.type = "lowpass"
+        this.biquad.type = "highpass"
 
         this.cutoffFrequency = synthFilter.synthKnobCutoff.value * 200
 
@@ -17,7 +17,9 @@ export default class Filter extends Effect {
 
         synthFilter.synthKnobCutoff.addEventListener('move', event => {
             this.cutoffFrequency = event.data
+            //this.biquad.frequency.value = event.data
             this.biquad.frequency.setValueAtTime(this.cutoffFrequency, audioContext.currentTime)
+            console.log(event.data)
         });
     }
 

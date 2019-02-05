@@ -9,7 +9,6 @@ export default class Soundfragment {
         this.oscNode.type = synthSound.synthOsc.value;
         this.volume = audiocontext.createGain();
         this.volume.gain.value = parseFloat(Math.pow(10, synthSound.synthKnobLevel.value / 20) / 100000)
-        this.oscNode.frequency.value *= parseFloat(Math.pow(synthSound.synthKnobPitch.value, 1/12))
         this.pitch = synthSound.synthKnobPitch.value
         this.oscNode.connect(this.volume);
     }
@@ -40,8 +39,8 @@ export default class Soundfragment {
     //
     setNote(note) {
         //Example: The user plays a midinote with value 72 and the note should be one octave higher, then "this.note" is 12.
-        this.oscNode.frequency.value = MidiToFreq.convert(this.note + note) * Math.pow(this.pitch, 1/12);
-    }
+        this.oscNode.frequency.value = MidiToFreq.convert(this.note + note) * Math.pow(1.0594630943592952645618252949463, this.pitch);
+   }
 
     setFrequency(frequency){
         this.oscNode.frequency.value = frequency;

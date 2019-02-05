@@ -6,20 +6,22 @@
     <script type="module" src="./src/main.js"></script>
 </head>
 <body>
-<div id="dial"></div>
     <div class="l">
-        <button id="add-sound">Add Sound</button>
+        <synth-module name="WebSynth">
+            <button id="add-sound">Add Oscillator</button>
+        </synth-module>
         <synth-sound></synth-sound>
         <synth-sound></synth-sound>
         <synth-sound></synth-sound>
     </div>
     <div class="r">
-        <synth-filter></synth-filter>
         <synth-adsr></synth-adsr>
-        <synth-delay></synth-delay>
         <synth-reverb></synth-reverb>
+        <synth-delay></synth-delay>
         <synth-tremolo></synth-tremolo>
         <synth-vibrato></synth-vibrato>
+        <synth-filter></synth-filter>
+        <synth-master></synth-master>
     </div>
 </body>
 </html>
