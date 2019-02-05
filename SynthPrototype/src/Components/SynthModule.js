@@ -11,10 +11,10 @@ export default class SynthModule extends HTMLElement {
         return html`
         <style>
         div {
-            height: 100%;
             background: rgba(0,0,0,.5);
-            padding: 24px;
-            margin: 0 6px;
+            padding: 3vh;
+            margin: 2vh 1vh;
+            height: 40vh;
             border-radius: 12px;
         }
         h2 {

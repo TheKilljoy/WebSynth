@@ -5,39 +5,34 @@ import Effect from "./Effect.js";
 //has to parameters to change: frequency and range.
 //range defines how "strong" the effect is and "frequency" how fast
 export default class Vibrato extends Effect{
-    constructor(synthVibrato, volumeNode, audioContext){
+
+    constructor(synthTremolo, volumeNode, audioContext){
         super(volumeNode, audioContext);
         this.lfo = audioContext.createOscillator();
-        this.lfo.frequency.value = synthVibrato.synthKnobFrequency.value;
-        this.lfo.type = synthVibrato.synthOsc.value;
         this.lfoRange = audioContext.createGain();
         this.lfoRange.gain.value = 1;
+
+        this.lfo.frequency.value = 0;
+        this.lfo.type = synthTremolo.synthOsc.value;
+
         this.lfo.connect(this.lfoRange);
         this.lfo.start();
-        this.soundfragments = []
 
-        synthVibrato.synthKnobFrequency.addEventListener('move', event => {
+        synthTremolo.synthKnobFrequency.addEventListener('move', event => {
             this.lfo.frequency.value = event.data;
         });
 
-        synthVibrato.synthOsc.addEventListener('select', event => {
+        synthTremolo.synthOsc.addEventListener('select', event => {
             this.lfo.type = event.data;
         });
     }
 
     apply(gainNode){
-        this.soundfragments.forEach(soundFrgmnt => {
-            soundFrgmnt.connectToOscillatorFrequency(this.lfoRange);
-        });
+        this.lfoRange.connect(this.volumeNode.gain);
         return gainNode;
     }
 
     getType(type){
-        return (type === "Vibrato")
-    }
-
-
-    setSoundfragments(soundfragments){
-        this.soundfragments = soundfragments;
+        return (type === "Tremolo")
     }
 }

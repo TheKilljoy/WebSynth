@@ -43,10 +43,10 @@ export default class SynthReverb extends HTMLElement {
             margin: 3px auto;
             padding: 6px;
             width: 192px;
-            height: 32px;
+            height: 24px;
             color: #FFF;
             background-color: rgba(0,0,0,0);
-            font-size: 1em;
+            font-size: .7em;
             border: none;
             border-radius: 16px;
             cursor: pointer;

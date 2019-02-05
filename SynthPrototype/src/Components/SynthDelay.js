@@ -14,7 +14,7 @@ export default class SynthDelay extends HTMLElement {
         return html`
         <synth-module name="Delay">
             <synth-knob min="0" max="1000" unit="ms" value="0">Time</synth-knob>
-            <synth-knob min="0" max="1" value="0">Duration</synth-knob>
+            <synth-knob min="0" max="100" value="0" unit="%">Duration</synth-knob>
         </synth-module>
         `
     }

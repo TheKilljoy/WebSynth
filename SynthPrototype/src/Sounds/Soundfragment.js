@@ -12,8 +12,6 @@ export default class Soundfragment {
         this.oscNode.frequency.value *= parseFloat(Math.pow(synthSound.synthKnobPitch.value, 1/12))
         this.pitch = synthSound.synthKnobPitch.value
         this.oscNode.connect(this.volume);
-        //pitch.addEventListener('move', (event) => { this.oscNode.frequency.value *= Math.pow(event.data, 1/12); console.log(this.oscNode.frequency.value) })
-        synthSound.synthKnobLevel.addEventListener('move', (event) => { this.volume.gain.value = parseFloat(Math.pow(10, event.data / 20) / 100000) })
     }
     //connects this volume node to another node (most probably the "Sound" volume node)
     //But can also be used for LFO effects

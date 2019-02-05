@@ -27,8 +27,6 @@ body{
 
 button {
     display: block;
-    margin: 3px auto;
-    padding: 6px;
     width: 128px;
     height: 32px;
     color: #FFF;

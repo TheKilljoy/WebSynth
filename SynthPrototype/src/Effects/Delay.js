@@ -9,10 +9,10 @@ export default class Delay extends Effect{
         super(volumeNode, audioContext);
 
         this.delay = audioContext.createDelay();
-        this.delay.delayTime.value = synthDelay.synthKnobTime.value / 100; // the time in seconds after which the first delay starts
+        this.delay.delayTime.value = 0; // the time in seconds after which the first delay starts
         this.source = audioContext.createBufferSource();
         this.feedback = audioContext.createGain();
-        this.delayDuration = synthDelay.synthKnobDuration.value / 100;
+        this.delayDuration = 0;
         this.feedback.gain.value = this.delayDuration;
 
         synthDelay.synthKnobTime.addEventListener('move', event => {
@@ -20,7 +20,7 @@ export default class Delay extends Effect{
         });
 
         synthDelay.synthKnobDuration.addEventListener('move', event => {
-            this.delayDuration = event.data;
+            this.delayDuration = event.data / 100;
             this.feedback.gain.value = this.delayDuration;
         });
     }
