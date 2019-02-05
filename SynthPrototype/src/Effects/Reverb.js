@@ -12,7 +12,6 @@ export default class Reverb extends Effect{
         super(volumeNode, audioContext);
         this.reverbType = ReverbType.type(synthReverb.value);
         this.convolver = audioContext.createConvolver();
-
         this.initReverb();
 
         synthReverb.addEventListener('select', event => {

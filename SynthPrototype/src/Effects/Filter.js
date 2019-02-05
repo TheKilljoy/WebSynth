@@ -5,7 +5,6 @@ export default class Filter extends Effect {
 
     constructor(synthFilter, volumeNode, audioContext) {
         super(volumeNode, audioContext)
-
         this.volumeNode = volumeNode
         this.biquad = audioContext.createBiquadFilter()
         this.biquad.type = "highpass"
