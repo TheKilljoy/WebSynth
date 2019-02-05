@@ -15,10 +15,10 @@ export default class SynthADSR extends HTMLElement {
 
         return html`
         <synth-module name="ADSR">
-            <synth-knob>Attack</synth-knob>
-            <synth-knob>Decay</synth-knob>
-            <synth-knob>Sustain</synth-knob>
-            <synth-knob>Release</synth-knob>
+            <synth-knob min="2" max="200" unit="ms" value="2">Attack</synth-knob>
+            <synth-knob min="2" max="200" unit="ms" value="2">Decay</synth-knob>
+            <synth-knob min="0" max="100" unit="%" value="0">Sustain</synth-knob>
+            <synth-knob min="2" max="200" unit="ms" value="2">Release</synth-knob>
         </synth-module>
         `
     }

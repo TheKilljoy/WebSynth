@@ -5,18 +5,25 @@ export default class SynthReverb extends HTMLElement {
         this.value = "SmallHexagon1"
         const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML = this.template()
 
-        this.shadowRoot.querySelector('button:nth-of-type(1)').onclick = () => { this.value = "SmallHexagon1" }
-        this.shadowRoot.querySelector('button:nth-of-type(2)').onclick = () => { this.value = "SmallHexagon2" }
-        this.shadowRoot.querySelector('button:nth-of-type(3)').onclick = () => { this.value = "Basement" }
-        this.shadowRoot.querySelector('button:nth-of-type(4)').onclick = () => { this.value = "LivingRoom" }
-        this.shadowRoot.querySelector('button:nth-of-type(5)').onclick = () => { this.value = "Staircase1" }
-        this.shadowRoot.querySelector('button:nth-of-type(6)').onclick = () => { this.value = "Staircase2" }
-        this.shadowRoot.querySelector('button:nth-of-type(7)').onclick = () => { this.value = "Staircase3" }
+        this.synthSwitch = this.shadowRoot.querySelector('synth-switch')
+
+        this.shadowRoot.querySelector('button:nth-of-type(1)').onclick = () => { this.value = null }
+        this.shadowRoot.querySelector('button:nth-of-type(2)').onclick = () => { this.value = "SmallHexagon1" }
+        this.shadowRoot.querySelector('button:nth-of-type(3)').onclick = () => { this.value = "SmallHexagon2" }
+        this.shadowRoot.querySelector('button:nth-of-type(4)').onclick = () => { this.value = "Basement" }
+        this.shadowRoot.querySelector('button:nth-of-type(5)').onclick = () => { this.value = "LivingRoom" }
+        this.shadowRoot.querySelector('button:nth-of-type(6)').onclick = () => { this.value = "Staircase1" }
+        this.shadowRoot.querySelector('button:nth-of-type(7)').onclick = () => { this.value = "Staircase2" }
+        this.shadowRoot.querySelector('button:nth-of-type(8)').onclick = () => { this.value = "Staircase3" }
 
         this.shadowRoot.querySelectorAll('button').forEach(button =>
             button.addEventListener('click', e => {
                 this.shadowRoot.querySelector('.selected').classList.remove('selected')
                 button.classList.add('selected')
+
+                let selectEvent = new Event('select', {bubbles: true, composed: true})
+                selectEvent.data = this.value;
+                this.shadowRoot.dispatchEvent(selectEvent)
             })
         )
 
@@ -36,10 +43,10 @@ export default class SynthReverb extends HTMLElement {
             margin: 3px auto;
             padding: 6px;
             width: 192px;
-            height: 32px;
+            height: 24px;
             color: #FFF;
             background-color: rgba(0,0,0,0);
-            font-size: 1em;
+            font-size: .7em;
             border: none;
             border-radius: 16px;
             cursor: pointer;
@@ -56,7 +63,8 @@ export default class SynthReverb extends HTMLElement {
         }
         </style>
         <synth-module name="Reverb">
-            <button class="selected">Small Hexagon 1</button>
+            <button class="selected">None</button>
+            <button>Small Hexagon 1</button>
             <button>Small Hexagon 2</button>
             <button>Basement</button>
             <button>Living Room</button>

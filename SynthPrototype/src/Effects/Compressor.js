@@ -27,6 +27,6 @@ export default class Compressor extends Effect{
     }
 
     getType(type){
-        return (type === "Tremolo")
+        return (type === "Compressor")
     }
 }

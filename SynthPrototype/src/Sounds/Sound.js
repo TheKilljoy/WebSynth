@@ -28,6 +28,7 @@ export default class Sound {
         //Do the Attack Delay Sustain stuff
         var volumeForPress = velocity/127;
         //Apply all effects on sound
+
         this.effectChain.applyEffects(this.audiocontext);
         this.volume.gain.cancelScheduledValues(0);
         this.volume.gain.setValueAtTime(0, now);

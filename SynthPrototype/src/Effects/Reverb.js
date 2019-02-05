@@ -10,15 +10,22 @@ const getImpulseBuffer = (audioContext, impulseURL) => {
 export default class Reverb extends Effect{
     constructor(synthReverb, volumeNode, audioContext){
         super(volumeNode, audioContext);
-        this.reverbType =  ReverbType.type(synthReverb.value);
+        this.reverbType = ReverbType.type(synthReverb.value);
         this.convolver = audioContext.createConvolver();
-        //console.log(this.reverbType)
         this.initReverb();
 
+        synthReverb.addEventListener('select', event => {
+            this.reverbType = ReverbType.type(event.data);
+            this.initReverb();
+        })
     }
 
     async initReverb(){
-        this.convolver.buffer = await getImpulseBuffer(this.audioContext, this.reverbType);
+        if (this.reverbType != null) {
+            this.convolver.buffer = await getImpulseBuffer(this.audioContext, this.reverbType);
+        } else {
+            this.convolver.buffer = null;
+        }
     }
 
     apply(gainNode){

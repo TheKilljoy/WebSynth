@@ -9,6 +9,9 @@ import SynthFilter from "./Components/SynthFilter.js"
 import SynthADSR from "./Components/SynthADSR.js"
 import SynthDelay from "./Components/SynthDelay.js"
 import SynthReverb from "./Components/SynthReverb.js"
+import SynthTremolo from "./Components/SynthTremolo.js"
+import SynthVibrato from "./Components/SynthVibrato.js"
+import SynthMaster from "./Components/SynthMaster.js"
 
 var valueAnalyse;
 
@@ -44,6 +47,5 @@ inputEventHandler.addUpEventBehaviour(function (event) {
 
 
 document.querySelector('#add-sound').onclick = function() {
-    console.log("HELLO");
-    document.body.append(new SynthSound())
+    document.querySelector('.l').append(new SynthSound())
 }

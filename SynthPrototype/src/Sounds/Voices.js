@@ -9,8 +9,8 @@ import Vibrato from "../Effects/Vibrato.js";
 import Compressor from "../Effects/Compressor.js";
 import Reverb from "../Effects/Reverb.js";
 import ReverbType from "../Effects/ReverbType.js";
-import ReverbAndDelay from "../Effects/ReverbAndDelay.js";
 import Filter from "../Effects/Filter.js";
+import ReverbAndDelay from "../Effects/ReverbAndDelay.js";
 
 //this class contains several sounds (each key you press represents a specific sound with a specific note)
 //and checks if that note is already played. if it is played it does nothing, if it isn't played yet it adds it
@@ -39,40 +39,44 @@ export default class Voices {
         this.precompressor.attack.value = 0;       //Is a k-rate AudioParam representing the amount of time, in seconds, required to reduce the gain by 10 dB.
         this.precompressor.release.value = 0.25;     //Is a k-rate AudioParam representing the amount of time, in seconds, required to increase the gain by 10 dB.
         this.masterVolume.connect(this.precompressor);
-        this.precompressor.connect(audiocontext.destination);
+        //this.precompressor.connect(this.masterVolume);
 
         this.synthFilter = document.querySelector('synth-filter')
         this.synthDelay = document.querySelector('synth-delay')
         this.synthReverb = document.querySelector('synth-reverb')
+        this.synthTremolo = document.querySelector('synth-tremolo')
+        this.synthVibrato = document.querySelector('synth-vibrato')
 
         this.masterVolume.connect(this.analyser);
 
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([
+            new ReverbAndDelay(this.synthReverb, this.synthDelay, this.masterVolume, this.audiocontext),
+            new Vibrato(this.synthTremolo, this.masterVolume, this.audiocontext),
+            new Tremolo(this.synthVibrato, this.masterVolume, this.audiocontext),
             new Filter(this.synthFilter, this.masterVolume, this.audiocontext),
-            new Reverb(this.synthReverb, this.masterVolume, this.audiocontext),
-            new Delay(this.synthDelay, this.masterVolume, this.audiocontext),
-            new ReverbAndDelay(ReverbType.type("SmallHexagon1"), 1, 0.5, this.masterVolume, this.audiocontext),
-            new Vibrato(5, 100, "sine", this.masterVolume, this.audiocontext),
-            new Tremolo(2, 1, "sine", this.masterVolume, this.audiocontext),
             new Compressor(-40, 20, 2, 0.0, 0.25, this.masterVolume, this.audiocontext)
         ]);
 
 
         //example for deactivating an effect - effects are switched on by creation, so if
         //the line is not commented out they are deactivated
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Filter"));
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Reverb"));
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Delay"));
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("ReverbAndDelay"));
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Vibrato"));
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
+        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Filter"));
+        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Reverb"));
+        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Delay"));
+        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Vibrato"));
+        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Compressor"));
     }
 
     //change the master volume
-    setVolume(volume){
-        this.masterVolume.gain.value = volume;
+    setVolume(){
+        let synthMaster = document.querySelector('synth-master')
+        let volume = synthMaster.synthKnobVolume.value
+        let logVolume = parseFloat(Math.pow(10, volume / 20) / 100000)
+        console.log(logVolume);
+        
+        this.masterVolume.gain.value = logVolume;
     }
 
     //adds a sound if it isn't pressed yet. if it is already added then it does nothing
@@ -94,6 +98,8 @@ export default class Voices {
             //the vibrato effect needs the frequency of the oscillatorNode of the soundfragments
             //therefore after we created the soundfragments we need to give the effect those soundfragments
             this.effectChain.getEffectByType("Vibrato").setSoundfragments(this.soundfragments);
+
+            this.setVolume()
 
             var s = new Sound(note, this.soundfragments, adsr, this.effectChain, this.audiocontext);
             this.dictionary[note] = s;
