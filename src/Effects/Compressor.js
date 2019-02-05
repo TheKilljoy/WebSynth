@@ -10,7 +10,7 @@ export default class Compressor extends Effect{
         this.compressor = audioContext.createDynamicsCompressor();
         this.compressor.threshold.value = 0; //Is a k-rate AudioParam representing the decibel value above which the compression will start taking effect.
         this.compressor.knee.value = 0;           //Is a k-rate AudioParam containing a decibel value representing the range above the threshold where the curve smoothly transitions to the compressed portion.
-        this.compressor.ratio.value = 0;         //Is a k-rate AudioParam representing the amount of change, in dB, needed in the input for a 1 dB change in the output.
+        this.compressor.ratio.value = 1;         //Is a k-rate AudioParam representing the amount of change, in dB, needed in the input for a 1 dB change in the output.
         this.compressor.attack.value = 0;       //Is a k-rate AudioParam representing the amount of time, in seconds, required to reduce the gain by 10 dB.
         this.compressor.release.value = 0;      //Is a k-rate AudioParam representing the amount of time, in seconds, required to increase the gain by 10 dB.
 

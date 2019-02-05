@@ -2,7 +2,7 @@ export default class SynthReverb extends HTMLElement {
     constructor() {
         super()
 
-        this.value = "SmallHexagon1"
+        this.value = null
         const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML = this.template()
 
         this.synthSwitch = this.shadowRoot.querySelector('synth-switch')

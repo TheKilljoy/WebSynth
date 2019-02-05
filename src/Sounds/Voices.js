@@ -48,7 +48,7 @@ export default class Voices {
         this.synthVibrato = document.querySelector('synth-vibrato')
         this.synthCompressor = document.querySelector('synth-compressor')
 
-        this.masterVolume.connect(this.analyser);
+        this.masterVolume.connect(this.analyser)
 
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([

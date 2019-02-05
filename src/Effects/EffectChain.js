@@ -16,7 +16,6 @@ export default class EffectChain{
     applyEffects(audioContext){
         var gainNode;
         for(var i = 0; i < this.effects.length; i++){
-            console.log(this.effects)
             if(this.activated[i]){
                 gainNode = this.effects[i].apply(gainNode);
             }
