@@ -23,6 +23,12 @@ export default class Voices {
         this.masterVolume.connect(audiocontext.destination);
         this.soundfragments = [];
 
+        //-------------------------------------------
+        this.analyser = audiocontext.createAnalyser();
+        this.analyser.fftSize = 128;
+        this.data = new Uint8Array(this.analyser.frequencyBinCount);
+        //-------------------------------------------
+
         //PRECOMPRESSION!!!!
         //prevents oscillators from adding up and clipping when many keys are pressed
         //needs to be configurable!
@@ -38,6 +44,8 @@ export default class Voices {
         this.synthFilter = document.querySelector('synth-filter')
         this.synthDelay = document.querySelector('synth-delay')
         this.synthReverb = document.querySelector('synth-reverb')
+
+        this.masterVolume.connect(this.analyser);
 
         //create the effect chain once inside the voices class (later needs to be created by the website)
         this.effectChain = new EffectChain([
@@ -61,8 +69,6 @@ export default class Voices {
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
         this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Compressor"));
     }
-
-
 
     //change the master volume
     setVolume(volume){
@@ -96,14 +102,20 @@ export default class Voices {
             s.onPress(note, velocity);
             //apply all effects on the sound
             //this.effectChain.applyEffects();
+            //keyPressedInBoth();
         }
-
     }
+
     //removes a sound if it isn't played anymore
     removeVoice(note) {
         if (typeof this.dictionary[note] != 'undefined') {
             this.dictionary[note].onRelease();
             delete this.dictionary[note];
         }
+    }
+
+    getData(){
+        this.analyser.getByteFrequencyData(this.data);
+        return this.data;
     }
 }
