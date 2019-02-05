@@ -32,6 +32,7 @@ export default class Compressor extends Effect{
 
         synthCompressor.synthKnobRelease.addEventListener('move', event => {
             this.compressor.release.value = event.data / 1000
+            console.log(this.compressor.reduction)
         })
     }
 

@@ -16,7 +16,6 @@ export default class Filter extends Effect {
 
         synthFilter.synthKnobCutoff.addEventListener('move', event => {
             this.cutoffFrequency = event.data
-            //this.biquad.frequency.value = event.data
             this.biquad.frequency.setValueAtTime(this.cutoffFrequency, audioContext.currentTime)
             console.log(event.data)
         });

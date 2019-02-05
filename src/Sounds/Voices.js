@@ -58,16 +58,6 @@ export default class Voices {
             new Filter(this.synthFilter, this.masterVolume, this.audiocontext),
             new Compressor(this.synthCompressor, this.masterVolume, this.audiocontext)
         ]);
-
-
-        //example for deactivating an effect - effects are switched on by creation, so if
-        //the line is not commented out they are deactivated
-        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Filter"));
-        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Reverb"));
-        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Delay"));
-        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Vibrato"));
-        //this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Tremolo"));
-        this.effectChain.switchEffectOnOff(this.effectChain.getIndexOfEffect("Compressor"));
     }
 
     //change the master volume
@@ -75,8 +65,6 @@ export default class Voices {
         let synthMaster = document.querySelector('synth-master')
         let volume = synthMaster.synthKnobVolume.value
         let logVolume = parseFloat(Math.pow(10, volume / 20) / 100000)
-        console.log(logVolume);
-        
         this.masterVolume.gain.value = logVolume;
     }
 

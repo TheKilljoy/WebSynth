@@ -18,7 +18,7 @@ export default class SynthCompressor extends HTMLElement {
 
         return html`
         <synth-module name="Compressor">
-            <synth-knob min="-32" max="0" unit="dB" value="0">Threshold</synth-knob>
+            <synth-knob min="-64" max="0" unit="dB" value="0">Threshold</synth-knob>
             <synth-knob min="0" max="40" unit="dB" value="0">Knee</synth-knob>
             <synth-knob min="1" max="20" unit=": 1" value="1">Ratio</synth-knob>
             <synth-knob min="0" max="500" unit="ms" value="0">Attack</synth-knob>
