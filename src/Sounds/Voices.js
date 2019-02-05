@@ -46,6 +46,7 @@ export default class Voices {
         this.synthReverb = document.querySelector('synth-reverb')
         this.synthTremolo = document.querySelector('synth-tremolo')
         this.synthVibrato = document.querySelector('synth-vibrato')
+        this.synthCompressor = document.querySelector('synth-compressor')
 
         this.masterVolume.connect(this.analyser);
 
@@ -55,7 +56,7 @@ export default class Voices {
             new Vibrato(this.synthTremolo, this.masterVolume, this.audiocontext),
             new Tremolo(this.synthVibrato, this.masterVolume, this.audiocontext),
             new Filter(this.synthFilter, this.masterVolume, this.audiocontext),
-            new Compressor(-40, 20, 2, 0.0, 0.25, this.masterVolume, this.audiocontext)
+            new Compressor(this.synthCompressor, this.masterVolume, this.audiocontext)
         ]);
 
 

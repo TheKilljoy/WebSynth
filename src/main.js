@@ -12,6 +12,7 @@ import SynthReverb from "./Components/SynthReverb.js"
 import SynthTremolo from "./Components/SynthTremolo.js"
 import SynthVibrato from "./Components/SynthVibrato.js"
 import SynthMaster from "./Components/SynthMaster.js"
+import SynthCompressor from "./Components/SynthCompressor.js"
 
 var valueAnalyse;
 
