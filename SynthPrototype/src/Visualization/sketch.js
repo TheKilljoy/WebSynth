@@ -17,7 +17,7 @@ function setup() {
   createCanvas(windowWidth,windowHeight);
   //colorMode(HSB);
   angleMode(DEGREES);
-  canvas = createCanvas(windowWidth-20,windowHeight-19);
+  canvas = createCanvas(windowWidth,windowHeight);
   canvas.position(0,0);
   canvas.style('z-index', '-1');
   widthBand = (width / 64);

@@ -5,7 +5,7 @@ export default class SynthMaster extends HTMLElement {
         const shadowRoot = this.attachShadow({mode: 'open'}).innerHTML = this.template()
 
         this.synthKnobVolume = this.shadowRoot.querySelector('synth-knob')
-        this.synthKnobVolume.value = 100
+        this.synthKnobVolume.value = 75
     }
 
     template() {
@@ -13,7 +13,7 @@ export default class SynthMaster extends HTMLElement {
 
         return html`
         <synth-module name="Master">
-            <synth-knob min="0" max="100" unit="%" value="100">Volume</synth-knob>
+            <synth-knob min="0" max="100" unit="%" value="75">Volume</synth-knob>
         </synth-module>
         `
     }
