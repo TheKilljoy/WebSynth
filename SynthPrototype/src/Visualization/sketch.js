@@ -43,17 +43,17 @@ function draw() {
           break;
         case 2:
           colorMode(HSB);
-          background(0,0,0);
+          background(0,0,15);
           radialVisualizer();
           break;
         case 3:
           colorMode(HSB);
-          background(0,0,0,0.1);
+          background(0,0,15);
           startFireworks();
           break;
         case 4:
           colorMode(HSB);
-          background(0,0,0);
+          background(0,0,15);
           drawCircles();
           break;
 
@@ -61,14 +61,16 @@ function draw() {
 }
 
 function barVisualizer(){
-
+ push();
   noStroke();
   for (var i = 0; i<analyserData.length; i++) {
     var amp = analyserDataRadial[i];
     var y = map(amp, 0, 256, height, 0);
+
     fill(i + map(mouseX, 0, windowWidth, -20, 150), 255, 255);
     rect(i*widthBand,y,widthBand-2, windowHeight - y );
   }
+  pop();
 }
 
 function radialVisualizer(){
@@ -80,23 +82,27 @@ function radialVisualizer(){
     var r = map(amp, 0, 256, windowWidth/8, 900);
     var x = r * cos(angle);
     var y = r * sin(angle);
+    push();
     stroke(i + map(mouseX, 0, width, -10, 160), 255, 255);
     strokeWeight(7);
     line(0, 0, x, y);
+    pop();
   }
 }
 
 
 function startFireworks(){
-  stroke(255);
-  strokeWeight(10);
-  for(var i=fireworks.length-1; i>=0; i--){
+    push();
+    stroke(255);
+    strokeWeight(10);
+    for (var i = fireworks.length - 1; i >= 0; i--) {
       fireworks[i].update();
       fireworks[i].show();
       if(fireworks[i].done()){
         fireworks.splice(i,1);
       }
   }
+  pop();
 }
 
 /*
