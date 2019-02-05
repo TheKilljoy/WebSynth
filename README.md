@@ -27,7 +27,7 @@ Einstellparameter sind hier
 
 # Effekte:
 ## ADSR
-ADSR steht für Attack, Decay, Sustain und Release. Attack wird in Millisekunden angegeben und legt fest, wie lange es braucht bis der Ton nach dem Tastenanschläg mit voller Lautstärke zu hören ist. Sustain ist die Lautstärke, die bei langem Drücken erhalten bleibt in Prozent, wie lange der Übergang zwischen Anfangslautstärke und Sustain andauert wird durch Decay in Millisekunden angegeben. Release gibt zum Schluss noch an, wie lange nach dem Loslassen der Taste der Ton noch zu hören ist. Alle Übergänge sind dabei linear.
+ADSR steht für Attack, Decay, Sustain und Release. Attack wird in Millisekunden angegeben und legt fest, wie lange es braucht, bis der Ton nach dem Tastenanschlag mit voller Lautstärke zu hören ist. Sustain ist die Lautstärke, die bei langem Drücken erhalten bleibt in Prozent, wie lange der Übergang zwischen Anfangslautstärke und Sustain andauert, wird durch Decay in Millisekunden angegeben. Release gibt zum Schluss noch an, wie lange nach dem Loslassen der Taste der Ton noch zu hören ist.
 ## Reverb
 Reverb simuliert natürlichen Hall. Dabei kann man zwischen verschiedenen Räumen wählen, die als Vorbild für die Erzeugung des Halls dienen.
 ## Delay
@@ -39,10 +39,8 @@ Dabei kann man zwischen verschiedenen Wellenformen auswählen. Die Stärke gibt 
 Verändert die Tonhöhe des Sounds periodisch.
 Dabei kann man zwischen verschiedenen Wellenformen auswählen. Die Stärke gibt an, wie weit die Tonhöhe vom Original abweicht. Die Frequenz gibt an, wie schnell diese Änderungen stattfinden.
 ## Filter
-[Erklärung + Einstellparameter]
+Durch Filter lassen sich Frequenzen herausfiltern, indem nur bestimmte Frequenzen durchgelassen werden. Dazu wird ein Lowpass Filter verwendet. Alle Frequenzen, die sich über der angegebenen Frequenz befinden, werden herausgefiltert.
 ## Compressor
-[Erklärung + Einstellparameter]
+Verändert die Dynamik. Der Threshold gibt an, ab wann der Kompressor anfängt die Lautstärke zu reduzieren. Die Ratio gibt an, wie stark ab dem Threshold das Signal reduziert werden soll, bei einer Ratio von 4:1 werden bspw. 4 dB auf 1 dB reduziert. Der Knee Parameter gibt an, wie viel Übergang zwischen Threshold und Kompression stattfindet. Attack und Release regeln, ab wann der Kompressor nach Überschreitung anfängt zu arbeiten bzw. wieder endet.
 ## MasterGain
 Der MasterGain regelt die Gesamtlautstärke der Anwendung.
-
-
